@@ -9,6 +9,7 @@ const StartScreen = ({ onReset, onRegister }) => (
       colors={['#82cfef', '#6693f5', '#ac94f4']}
       style={styles.LinearGradient}
     >
+    <Text style={styles.welcomeText}>Welcome to Daoli's Guessing Game!</Text>
     <View style={styles.card}>
       <Text style={styles.title}>Name</Text>
       <TextInput style={styles.input} placeholder="" />
@@ -35,9 +36,16 @@ const StartScreen = ({ onReset, onRegister }) => (
 
 const styles = StyleSheet.create({
   container: {
-    justifyContent: 'center',
+    flex: 1,
     alignItems: 'center',
     backgroundColor: 'transparent',
+  },
+  welcomeText: {
+    fontSize: 20,
+    color: 'white',
+    fontWeight: 'bold',
+    marginBottom: 70,
+    textAlign: 'center',
   },
   LinearGradient: {
     width: '100%',
@@ -76,9 +84,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
     marginTop: 30,
+    color: 'gray',
   },
   checkboxLabel: {
     marginLeft: 10,
+    color: 'gray',
   },
   buttonContainer: {
     marginTop: 20,
@@ -102,11 +112,9 @@ const styles = StyleSheet.create({
   },
   resetButtonText: {
     color: 'red',
-    fontWeight: 'bold',
   },
   registerButtonText: {
     color: 'blue',
-    fontWeight: 'bold',
   },
 });
 

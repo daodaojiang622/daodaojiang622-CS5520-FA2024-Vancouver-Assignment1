@@ -1,9 +1,14 @@
 import React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import Checkbox from 'expo-checkbox';
+import { LinearGradient } from 'expo-linear-gradient';
 
 const StartScreen = ({ onReset, onRegister }) => (
   <View style={styles.container}>
+    <LinearGradient
+      colors={['#82cfef', '#6693f5', '#ac94f4']}
+      style={styles.LinearGradient}
+    >
     <View style={styles.card}>
       <Text style={styles.title}>Name</Text>
       <TextInput style={styles.input} placeholder="" />
@@ -24,21 +29,27 @@ const StartScreen = ({ onReset, onRegister }) => (
         </TouchableOpacity>
       </View>
     </View>
+    </LinearGradient>
   </View>
 );
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#f5f5f5',
+    backgroundColor: 'transparent',
+  },
+  LinearGradient: {
+    width: '100%',
+    height: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   card: {
-    width: '90%',
+    width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: '#fff',
+    backgroundColor: '#ececec',
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
@@ -76,14 +87,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   resetButton: {
-    backgroundColor: '#ffffff',
+    backgroundColor: 'transparent',
     padding: 10,
     borderRadius: 5,
     width: 100,
     alignItems: 'center',
   },
   registerButton: {
-    backgroundColor: '#ffffff',
+    backgroundColor: 'transparent',
     padding: 10,
     borderRadius: 5,
     width: 100,

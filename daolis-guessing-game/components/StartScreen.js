@@ -1,22 +1,25 @@
 import React from 'react';
-import { View, Text, TextInput, Button, StyleSheet, TouchableOpacity, Linking } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Linking } from 'react-native';
 import Checkbox from 'expo-checkbox';
-
 
 const StartScreen = ({ onReset, onRegister }) => (
   <View style={styles.container}>
     <View style={styles.card}>
       <Text style={styles.title}>Welcome to Daoli's Guessing Game!</Text>
-      <TextInput style={styles.input} placeholder="" />
-      <TextInput style={styles.input} placeholder="" />
-      <TextInput style={styles.input} placeholder="" />
+      <TextInput style={styles.input} placeholder="Enter text 1" />
+      <TextInput style={styles.input} placeholder="Enter text 2" />
+      <TextInput style={styles.input} placeholder="Enter text 3" />
       <View style={styles.checkboxContainer}>
         <Checkbox />
-        <Text style={styles.checkboxLabel}>I am not a robot</Text>
+        <Text style={styles.checkboxLabel}>I agree to the terms and conditions</Text>
       </View>
       <View style={styles.buttonContainer}>
-        <Button title="Reset" onPress={onReset} />
-        <Button title="Register" onPress={onRegister} />
+        <TouchableOpacity style={styles.resetButton} onPress={onReset}>
+          <Text style={styles.resetButtonText}>Reset</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.registerButton} onPress={onRegister}>
+          <Text style={styles.registerButtonText}>Register</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </View>
@@ -62,16 +65,33 @@ const styles = StyleSheet.create({
   checkboxLabel: {
     marginLeft: 10,
   },
-  link: {
-    color: 'blue',
-    marginVertical: 10,
-    textDecorationLine: 'underline',
-  },
   buttonContainer: {
     marginTop: 20,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  resetButton: {
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 5,
+    width: 100,
+    alignItems: 'center',
+  },
+  registerButton: {
+    backgroundColor: '#ffffff',
+    padding: 10,
+    borderRadius: 5,
+    width: 100,
+    alignItems: 'center',
+  },
+  resetButtonText: {
+    color: 'red',
+    fontWeight: 'bold',
+  },
+  registerButtonText: {
+    color: 'blue',
+    fontWeight: 'bold',
   },
 });
 

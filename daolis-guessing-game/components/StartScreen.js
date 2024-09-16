@@ -5,9 +5,11 @@ import Checkbox from 'expo-checkbox';
 const StartScreen = ({ onReset, onRegister }) => (
   <View style={styles.container}>
     <View style={styles.card}>
-      <Text style={styles.title}>Welcome to Daoli's Guessing Game!</Text>
+      <Text style={styles.title}>Name</Text>
       <TextInput style={styles.input} placeholder="Enter text 1" />
+      <Text style={styles.title}>Email address</Text>
       <TextInput style={styles.input} placeholder="Enter text 2" />
+      <Text style={styles.title}>Phone Number</Text>
       <TextInput style={styles.input} placeholder="Enter text 3" />
       <View style={styles.checkboxContainer}>
         <Checkbox />
@@ -42,20 +44,20 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    alignItems: 'center',
+    alignItems: 'left',
   },
   title: {
-    fontSize: 18,
+    fontSize: 15,
+    color: 'purple',
     marginBottom: 15,
     textAlign: 'center',
   },
   input: {
     width: '100%',
-    padding: 10,
+    padding: 5,
     marginVertical: 5,
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: 5,
+    borderBottomColor: 'purple',
+    borderBottomWidth: 2,
   },
   checkboxContainer: {
     flexDirection: 'row',

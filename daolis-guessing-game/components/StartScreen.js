@@ -6,14 +6,14 @@ const StartScreen = ({ onReset, onRegister }) => (
   <View style={styles.container}>
     <View style={styles.card}>
       <Text style={styles.title}>Name</Text>
-      <TextInput style={styles.input} placeholder="Enter text 1" />
+      <TextInput style={styles.input} placeholder="" />
       <Text style={styles.title}>Email address</Text>
-      <TextInput style={styles.input} placeholder="Enter text 2" />
+      <TextInput style={styles.input} placeholder="" />
       <Text style={styles.title}>Phone Number</Text>
-      <TextInput style={styles.input} placeholder="Enter text 3" />
+      <TextInput style={styles.input} placeholder="" />
       <View style={styles.checkboxContainer}>
         <Checkbox />
-        <Text style={styles.checkboxLabel}>I agree to the terms and conditions</Text>
+        <Text style={styles.checkboxLabel}>I am not a robot</Text>
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity style={styles.resetButton} onPress={onReset}>
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 15,
     color: 'purple',
-    marginBottom: 15,
+    marginBottom: 10,
+    marginTop: 10,
     textAlign: 'center',
   },
   input: {
@@ -63,6 +64,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
+    marginTop: 30,
   },
   checkboxLabel: {
     marginLeft: 10,

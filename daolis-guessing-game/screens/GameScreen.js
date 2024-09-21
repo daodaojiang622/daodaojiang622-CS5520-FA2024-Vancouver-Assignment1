@@ -164,41 +164,43 @@ const styles = StyleSheet.create({
   modalStartButtonText: {
     color: 'white',
   },
-
   gameContainer: {
     alignItems: 'center',
+    padding: 20,
   },
   timerText: {
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 20,
     color: 'red',
   },
   attemptsText: {
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 20,
     color: 'red',
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
+    borderColor: 'transparent',
     padding: 10,
     width: '80%',
     marginBottom: 20,
     textAlign: 'center',
+    fontSize: 20,
+    borderBottomColor: 'purple',
+    bottomBorderWidth: 2,
   },
   hintText: {
-    fontSize: 18,
+    fontSize: 15,
     marginBottom: 20,
     color: 'green',
   },
   buttonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    width: '80%',
+    width: '100%',
   },
   hintButton: {
-    backgroundColor: 'orange',
+    backgroundColor: 'green',
     padding: 10,
     borderRadius: 5,
   },

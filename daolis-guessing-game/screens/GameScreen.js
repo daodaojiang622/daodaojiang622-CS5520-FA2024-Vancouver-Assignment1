@@ -1,6 +1,6 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native';
 
 const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome }) => {
   const [startButtonVisible, setStartButtonVisible] = useState(true);
@@ -21,24 +21,37 @@ const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome })
     }
   }, [startButtonVisible, timer]);
 
-  // Hint function (can be customized)
+  // Hint function
   const handleUseHint = () => {
     if (!hintUsed) {
       // Replace this with your hint logic
       setHint('Hint: The number is even');
       setHintUsed(true);
+    } else {
+      Alert.alert('Hint Used', 'You have already used a hint.');
     }
   };
 
   // Handle submit guess (example logic)
   const handleSubmitGuess = () => {
-    if (attempts > 1) {
-      setAttempts(attempts - 1);
-      // Your guess validation logic goes here
-    } else {
-      // End game or give feedback when no attempts are left
-      console.log('Game over');
+    const guess = parseInt(userInput);
+
+    // Validation logic
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+      Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
+      return;
     }
+    
+    if (attempts > 1 && timer > 0) {
+      setAttempts(attempts - 1);
+    } else if (attempts === 1 && timer > 0) {
+      Alert.alert('Game Over', 'You have used all your attempts.');
+    } else {
+      Alert.alert('Time Up', 'You have run out of time.');
+    }
+
+    // Reset user input after submission
+    setUserInput('');
   };
   
   return (

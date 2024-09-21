@@ -1,9 +1,45 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity } from 'react-native';
 
 const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome }) => {
-  const [modalVisible, setModalVisible] = useState(true);
+  const [startButtonVisible, setStartButtonVisible] = useState(true);
+  const [timer, setTimer] = useState(60);
+  const [attempts, setAttempts] = useState(4);
+  const [hintUsed, setHintUsed] = useState(false);
+  const [hint, setHint] = useState('');
+  const [userInput, setUserInput] = useState('');
+
+  // Countdown timer
+  useEffect(() => {
+    if (!startButtonVisible && timer > 0) {
+      const interval = setInterval(() => {
+        setTimer((prevTimer) => prevTimer - 1);
+      }, 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [startButtonVisible, timer]);
+
+  // Hint function (can be customized)
+  const handleUseHint = () => {
+    if (!hintUsed) {
+      // Replace this with your hint logic
+      setHint('Hint: The number is even');
+      setHintUsed(true);
+    }
+  };
+
+  // Handle submit guess (example logic)
+  const handleSubmitGuess = () => {
+    if (attempts > 1) {
+      setAttempts(attempts - 1);
+      // Your guess validation logic goes here
+    } else {
+      // End game or give feedback when no attempts are left
+      console.log('Game over');
+    }
+  };
   
   return (
     <View style={styles.container}>
@@ -15,9 +51,8 @@ const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome })
         <Modal
           animationType="slide"
           transparent={true}
-          visible={modalVisible}
+          visible={true}
           onRequestClose={() => {
-            setModalVisible(!modalVisible);
           }}
         >
           <View style={styles.modalContainer}>
@@ -26,17 +61,57 @@ const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome })
                 You have 60 seconds and 4 {'\n'}
                 attemps to guess a number {'\n'}
                 that is multiply of the {'\n'}
-                last digit of their phone {'\n'}
+                last digit of your phone {'\n'}
                 number between 1 and 100.
               </Text>
-              <View style={styles.modalButtonContainer}>
-                <TouchableOpacity
-                  style={styles.modalStartButton}
-                  onPress={() => setModalVisible(false)}
-                >
-                  <Text style={styles.modalStartButtonText}>Start</Text>
-                </TouchableOpacity>
-              </View>
+
+              {/* Conditional rendering for Start button */}
+              {startButtonVisible ? (
+                <View style={styles.modalButtonContainer}>
+                  <TouchableOpacity
+                    style={styles.modalStartButton}
+                    onPress={() => setStartButtonVisible(false)} // Hide Start button on press
+                  >
+                    <Text style={styles.modalStartButtonText}>Start</Text>
+                  </TouchableOpacity>
+                </View>
+              ) : null}
+
+              {/* Display game components when Start button is hidden */}
+              {!startButtonVisible && (
+                <View style={styles.gameContainer}>
+                  <Text style={styles.timerText}>Time left: {timer} seconds</Text>
+                  <Text style={styles.attemptsText}>Attempts left: {attempts}</Text>
+
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter your guess"
+                    keyboardType="numeric"
+                    value={userInput}
+                    onChangeText={setUserInput}
+                  />
+
+                  {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
+
+                  <View style={styles.buttonContainer}>
+                    <TouchableOpacity
+                      style={styles.hintButton}
+                      onPress={handleUseHint}
+                      disabled={hintUsed}
+                    >
+                      <Text style={styles.hintButtonText}>Use a Hint</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                      style={styles.submitButton}
+                      onPress={handleSubmitGuess}
+                    >
+                      <Text style={styles.submitButtonText}>Submit Guess</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              )}
+
             </View>
           </View>
         </Modal>
@@ -87,6 +162,55 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   modalStartButtonText: {
+    color: 'white',
+  },
+
+  gameContainer: {
+    alignItems: 'center',
+  },
+  timerText: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: 'red',
+  },
+  attemptsText: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: 'red',
+  },
+  input: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    width: '80%',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  hintText: {
+    fontSize: 18,
+    marginBottom: 20,
+    color: 'green',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
+  },
+  hintButton: {
+    backgroundColor: 'orange',
+    padding: 10,
+    borderRadius: 5,
+  },
+  hintButtonText: {
+    color: 'white',
+  },
+  submitButton: {
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+  },
+  submitButtonText: {
     color: 'white',
   },
 });

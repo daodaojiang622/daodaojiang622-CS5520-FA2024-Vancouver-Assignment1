@@ -13,6 +13,28 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
   const [generateNum, setGenerateNum] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
 
+  const [startModalVisible, setStartModalVisible] = useState(true);
+  const [gameModalVisible, setGameModalVisible] = useState(false);
+  const [endModalVisible, setEndModalVisible] = useState(false);
+
+  const openStartModal = () => {
+    setStartModalVisible(true);
+    setGameModalVisible(false);
+    setEndModalVisible(false);
+  };
+
+  const openGameModal = () => {
+    setStartModalVisible(false);
+    setGameModalVisible(true);
+    setEndModalVisible(false);
+  };
+
+  const openEndModal = () => {
+    setStartModalVisible(false);
+    setGameModalVisible(false);
+    setEndModalVisible(true);
+  };
+
   const { phone } = useRoute().params;
 
   const lastPhoneDigit = phone.slice(-1); // Multiply the last digit of input phone number
@@ -106,11 +128,9 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
       >
         {/* Start Modal */}
         <Modal
-          animationType="slide"
+          animationType="none"
           transparent={true}
-          visible={true}
-          onRequestClose={() => {
-          }}
+          visible={startModalVisible}
         >
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
@@ -161,7 +181,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
 
                     <TouchableOpacity
                       style={styles.submitButton}
-                      onPress={handleSubmitGuess}
+                      onPress={handleSubmitGuess && openGameModal}
                     >
                       <Text style={styles.submitButtonText}>Submit Guess</Text>
                     </TouchableOpacity>
@@ -172,6 +192,22 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
             </View>
           </View>
         </Modal>
+
+        {/* Game Modal */}
+        <Modal
+          animationType="none"
+          transparent={true}
+          visible={gameModalVisible}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                Game modal
+              </Text>
+            </View>
+          </View>
+        </Modal>
+          
       </LinearGradient>
     </View>
   );

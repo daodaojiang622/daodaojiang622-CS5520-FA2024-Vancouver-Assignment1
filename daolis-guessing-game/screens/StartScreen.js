@@ -4,11 +4,11 @@ import Checkbox from 'expo-checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
 import ConfirmScreen from './ConfirmScreen'; // Import your new component
 
-const StartScreen = ({ onStartGame }) => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [phone, setPhone] = useState('');
-  const [isChecked, setIsChecked] = useState(false);
+const StartScreen = ({ navigation, onStartGame }) => {
+  const [name, setName] = useState('test');
+  const [email, setEmail] = useState('test@tegst.test');
+  const [phone, setPhone] = useState('9876543219');
+  const [isChecked, setIsChecked] = useState(true);
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
@@ -63,7 +63,8 @@ const StartScreen = ({ onStartGame }) => {
 
   const handleContinue = () => {
     setModalVisible(false);
-    onStartGame();
+    onStartGame(phone);
+    navigation.navigate('Game', { phone });
   };
 
   return (

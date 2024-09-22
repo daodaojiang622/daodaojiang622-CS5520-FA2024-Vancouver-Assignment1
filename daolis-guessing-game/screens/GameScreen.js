@@ -1,14 +1,32 @@
 import { LinearGradient } from 'expo-linear-gradient';
+import { useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native';
 
-const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome }) => {
+const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) => {
   const [startButtonVisible, setStartButtonVisible] = useState(true);
   const [timer, setTimer] = useState(60);
   const [attempts, setAttempts] = useState(4);
   const [hintUsed, setHintUsed] = useState(false);
   const [hint, setHint] = useState('');
   const [userInput, setUserInput] = useState('');
+
+  const { phone } = useRoute().params;
+
+  const lastPhoneDigit = phone.slice(-1); // Multiply the last digit of input phoneby 9
+
+  const getRandomNaturalNumber = () => {
+      const min = 1;
+      const max = 100;
+
+      let generateNum;
+      do {
+          generateNum = lastPhoneDigit * (Math.floor(Math.random() * (max - min + 1)) + min);
+      } while (generateNum > 100 || generateNum < 1);
+      return generateNum;
+  };
+
+  const generateNum = getRandomNaturalNumber();
 
   // Countdown timer
   useEffect(() => {
@@ -32,7 +50,7 @@ const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome })
     }
   };
 
-  // Handle submit guess (example logic)
+  // Handle submit guess
   const handleSubmitGuess = () => {
     const guess = parseInt(userInput);
 
@@ -75,7 +93,7 @@ const GameScreen = ({ inputNumber, onInputChange, onSubmitGuess, onBackToHome })
                 attemps to guess a number {'\n'}
                 that is multiply of the {'\n'}
                 last digit of your phone {'\n'}
-                number between 1 and 100.
+                number {phone} & {lastPhoneDigit} & {generateNum} between 1 and 100.
               </Text>
 
               {/* Conditional rendering for Start button */}

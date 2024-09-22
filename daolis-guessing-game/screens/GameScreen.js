@@ -23,6 +23,13 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     setGameModalVisible(false);
     setEndModalVisible(false);
     setSubmitModalVisible(false);
+
+    setTimer(60);
+    setAttempts(4);
+    setHintUsed(false);
+    setHint('');
+    setIsGameOver(false);
+    setGenerateNum(getRandomNaturalNumber());
   };
 
   const openGameModal = () => {
@@ -44,6 +51,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     setGameModalVisible(false);
     setEndModalVisible(false);
     setSubmitModalVisible(true);
+    setUserInput('');
   };
 
   const { phone } = useRoute().params;
@@ -135,12 +143,23 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     openSubmitModal();
   }
 
+  const handleNewGame = () => {
+    openSubmitModal();
+    setTimer(60);
+    setAttempts(4);
+    setHintUsed(false);
+    setHint('');
+    setIsGameOver(false);
+    setGenerateNum(getRandomNaturalNumber());
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
         colors={['#82cfef', '#6693f5', '#ac94f4']}
         style={styles.LinearGradient}
       >
+
         {/* Start Modal */}
         <Modal
           animationType="none"
@@ -175,6 +194,15 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
           transparent={true}
           visible={submitModalVisible}
         >
+         <View style={styles.restartButtonSubmitModalContainer}>
+            <TouchableOpacity
+              style={styles.restartButton}
+              visible={startButtonVisible}
+              onPress={openStartModal}
+            >
+              <Text style={styles.restartButtonText}>Restart</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
             <Text style={styles.modalText}>
@@ -195,6 +223,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
                 keyboardType="numeric"
                 value={userInput}
                 onChangeText={setUserInput}
+                autoFocus = {true}
               />
 
               {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
@@ -227,6 +256,15 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
           transparent={true}
           visible={gameModalVisible}
         >
+          <View style={styles.restartButtonContainer}>
+            <TouchableOpacity
+              style={styles.restartButton}
+              visible={startButtonVisible}
+              onPress={openStartModal}
+            >
+              <Text style={styles.restartButtonText}>Restart</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
@@ -242,9 +280,42 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.modalStartButton}
-                    onPress={() => setStartButtonVisible(true)}
+                    onPress={openEndModal}
                   >
                     <Text style={styles.modalStartButtonText}>End The Game</Text>
+                  </TouchableOpacity>
+                </View>
+            </View>
+          </View>
+        </Modal>
+
+        {/* End Modal */}
+        <Modal
+          animationType="none"
+          transparent={true}
+          visible={endModalVisible}
+        >
+          <View style={styles.restartButtonContainer}>
+            <TouchableOpacity
+              style={styles.restartButton}
+              visible={startButtonVisible}
+              onPress={openStartModal}
+            >
+              <Text style={styles.restartButtonText}>Restart</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.modalContainer}>
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                End modal
+              </Text>
+
+              <View style={styles.gameModalButtonContainer}>
+                  <TouchableOpacity
+                    style={styles.modalStartButton}
+                    onPress={handleNewGame}
+                  >
+                    <Text style={styles.modalStartButtonText}>New Game</Text>
                   </TouchableOpacity>
                 </View>
             </View>
@@ -358,6 +429,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     width: '100%',
+  },
+  restartButtonContainer: {
+    position: 'absolute',
+    top: 300,
+    left: 285,
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+  },
+  restartButtonText: {  
+    color: 'white',
+  },
+  restartButtonSubmitModalContainer: {
+    position: 'absolute',
+    top: 150,
+    left: 285,
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
   },
 });
 

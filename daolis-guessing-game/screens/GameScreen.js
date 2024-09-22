@@ -45,12 +45,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
 
   // Hint function
   const handleUseHint = () => {
+    
     if (!hintUsed) {
-      // Replace this with your hint logic
-      setHint('Hint: The number is even');
+      // give the last digit of the answer
+      setHint('Hint: The last digit is ' + generateNum % 10);
       setHintUsed(true);
-    } else {
-      Alert.alert('Hint Used', 'You have already used a hint.');
     }
   };
 

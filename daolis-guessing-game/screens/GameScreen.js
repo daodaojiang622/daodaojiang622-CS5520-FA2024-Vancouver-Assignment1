@@ -16,23 +16,34 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
   const [startModalVisible, setStartModalVisible] = useState(true);
   const [gameModalVisible, setGameModalVisible] = useState(false);
   const [endModalVisible, setEndModalVisible] = useState(false);
+  const [submitModalVisible, setSubmitModalVisible] = useState(false);
 
   const openStartModal = () => {
     setStartModalVisible(true);
     setGameModalVisible(false);
     setEndModalVisible(false);
+    setSubmitModalVisible(false);
   };
 
   const openGameModal = () => {
     setStartModalVisible(false);
     setGameModalVisible(true);
     setEndModalVisible(false);
+    setSubmitModalVisible(false);
   };
 
   const openEndModal = () => {
     setStartModalVisible(false);
     setGameModalVisible(false);
     setEndModalVisible(true);
+    setSubmitModalVisible(false);
+  };
+
+  const openSubmitModal = () => {
+    setStartModalVisible(false);
+    setGameModalVisible(false);
+    setEndModalVisible(false);
+    setSubmitModalVisible(true);
   };
 
   const { phone } = useRoute().params;
@@ -56,14 +67,14 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
 
   // Countdown timer
   useEffect(() => {
-    if (!startButtonVisible && timer > 0) {
+    if ( timer > 0) {
       const interval = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
 
       return () => clearInterval(interval);
     }
-  }, [startButtonVisible, timer]);
+  }, [timer]);
 
   // Hint function
   const handleUseHint = () => {
@@ -120,6 +131,10 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     }
   }
 
+  const handleTryAgain = () => {
+    openSubmitModal();
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -142,56 +157,69 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
                 number {phone} & {lastPhoneDigit} & {generateNum} between 1 and 100.
               </Text>
 
-              {/* Conditional rendering for Start button */}
-              {startButtonVisible ? (
-                <View style={styles.modalButtonContainer}>
-                  <TouchableOpacity
-                    style={styles.modalStartButton}
-                    onPress={() => setStartButtonVisible(false)} // Hide Start button on press
-                  >
-                    <Text style={styles.modalStartButtonText}>Start</Text>
-                  </TouchableOpacity>
-                </View>
-              ) : null}
-
-              {/* Display game components when Start button is hidden */}
-              {!startButtonVisible && (
-                <View style={styles.gameContainer}>
-                  <Text style={styles.timerText}>Time left: {timer} seconds</Text>
-                  <Text style={styles.attemptsText}>Attempts left: {attempts}</Text>
-
-                  <TextInput
-                    style={styles.input}
-                    placeholder="Enter your guess"
-                    keyboardType="numeric"
-                    value={userInput}
-                    onChangeText={setUserInput}
-                  />
-
-                  {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
-
-                  <View style={styles.buttonContainer}>
-                    <TouchableOpacity
-                      style={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
-                      onPress={handleUseHint}
-                      disabled={hintUsed}
-                    >
-                      <Text style={styles.hintButtonText}>Use a Hint</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                      style={styles.submitButton}
-                      onPress={handleSubmitGuess && openGameModal}
-                    >
-                      <Text style={styles.submitButtonText}>Submit Guess</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              )}
-
+              <View style={styles.modalButtonContainer}>
+                <TouchableOpacity
+                  style={styles.modalStartButton}
+                  onPress={openSubmitModal}
+                >
+                  <Text style={styles.modalStartButtonText}>Start</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           </View>
         </Modal>
+
+        {/* Submit Modal */}
+        <Modal
+          animationType="none"
+          transparent={true}
+          visible={submitModalVisible}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+                You have 60 seconds and 4 {'\n'}
+                attemps to guess a number {'\n'}
+                that is multiply of the {'\n'}
+                last digit of your phone {'\n'}
+                number {phone} & {lastPhoneDigit} & {generateNum} between 1 and 100.
+              </Text>
+
+            <View style={styles.gameContainer}>
+              <Text style={styles.timerText}>Time left: {timer} seconds</Text>
+              <Text style={styles.attemptsText}>Attempts left: {attempts}</Text>
+
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your guess"
+                keyboardType="numeric"
+                value={userInput}
+                onChangeText={setUserInput}
+              />
+
+              {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
+
+                <View style={styles.buttonContainer}>
+                  <TouchableOpacity
+                    style={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
+                    onPress={handleUseHint}
+                    disabled={hintUsed}
+                  >
+                    <Text style={styles.hintButtonText}>Use a Hint</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity
+                    style={styles.submitButton}
+                    onPress={handleSubmitGuess && openGameModal}
+                  >
+                    <Text style={styles.submitButtonText}>Submit Guess</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>  
+          </View>
+        </Modal>
+              
 
         {/* Game Modal */}
         <Modal
@@ -208,7 +236,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
               <View style={styles.gameModalButtonContainer}>
                   <TouchableOpacity
                     style={styles.modalStartButton}
-                    onPress={() => setStartButtonVisible(true)}
+                    onPress={handleTryAgain}
                   >
                     <Text style={styles.modalStartButtonText}>Try Again</Text>
                   </TouchableOpacity>

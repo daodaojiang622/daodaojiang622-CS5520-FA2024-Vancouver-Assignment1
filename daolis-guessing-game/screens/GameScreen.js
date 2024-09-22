@@ -202,8 +202,23 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                Game modal
+                game modal
               </Text>
+
+              <View style={styles.gameModalButtonContainer}>
+                  <TouchableOpacity
+                    style={styles.modalStartButton}
+                    onPress={() => setStartButtonVisible(true)}
+                  >
+                    <Text style={styles.modalStartButtonText}>Try Again</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={styles.modalStartButton}
+                    onPress={() => setStartButtonVisible(true)}
+                  >
+                    <Text style={styles.modalStartButtonText}>End The Game</Text>
+                  </TouchableOpacity>
+                </View>
             </View>
           </View>
         </Modal>
@@ -310,6 +325,11 @@ const styles = StyleSheet.create({
   },
   submitButtonText: {
     color: 'white',
+  },
+  gameModalButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '100%',
   },
 });
 

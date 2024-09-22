@@ -10,10 +10,12 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
   const [hintUsed, setHintUsed] = useState(false);
   const [hint, setHint] = useState('');
   const [userInput, setUserInput] = useState('');
+  const [generateNum, setGenerateNum] = useState(null);
+  const [isGameOver, setIsGameOver] = useState(false);
 
   const { phone } = useRoute().params;
 
-  const lastPhoneDigit = phone.slice(-1); // Multiply the last digit of input phoneby 9
+  const lastPhoneDigit = phone.slice(-1); // Multiply the last digit of input phone number
 
   const getRandomNaturalNumber = () => {
       const min = 1;
@@ -26,7 +28,9 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
       return generateNum;
   };
 
-  const generateNum = getRandomNaturalNumber();
+  useEffect(() => {
+    setGenerateNum(getRandomNaturalNumber());
+  }, []);
 
   // Countdown timer
   useEffect(() => {
@@ -50,28 +54,51 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     }
   };
 
-  // Handle submit guess
-  const handleSubmitGuess = () => {
-    const guess = parseInt(userInput);
+  // Handle invalid guesses
+  const isValidGuess = (guess) => {
 
-    // Validation logic
-    if (isNaN(guess) || guess < 1 || guess > 100) {
-      Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
-      return;
-    }
-    
-    if (attempts > 1 && timer > 0) {
-      setAttempts(attempts - 1);
-    } else if (attempts === 1 && timer > 0) {
+    if (attempts > 0 && timer > 0) {
+      // Validation logic
+      if (isNaN(guess) || guess < 1 || guess > 100) {
+        Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
+        return false;
+      }
+        setAttempts(attempts - 1);
+    } else if (attempts === 0) {
       Alert.alert('Game Over', 'You have used all your attempts.');
+      setIsGameOver(true);
     } else {
       Alert.alert('Time Up', 'You have run out of time.');
+      setIsGameOver(true);
     }
 
     // Reset user input after submission
     setUserInput('');
+    return true;
   };
-  
+
+  // Handle valid guess submission
+  const handleValidGuess = (guess) => {
+    if (guess === generateNum) {
+      Alert.alert('Congratulations!', 'You have guessed the number correctly.');
+      // Set isGameOver to true when the game ends
+      setIsGameOver(true);
+    } else if (guess < generateNum) {
+      Alert.alert('Hint: Try a higher number');
+    } else {
+      Alert.alert('Hint: Try a lower number');
+    }
+  };
+
+  // Handle guess submission
+  const handleSubmitGuess = () => {
+    const guess = parseInt(userInput);
+
+    if (isValidGuess(guess)) {
+      handleValidGuess(guess);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <LinearGradient
@@ -126,7 +153,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
 
                   <View style={styles.buttonContainer}>
                     <TouchableOpacity
-                      style={styles.hintButton}
+                      style={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
                       onPress={handleUseHint}
                       disabled={hintUsed}
                     >
@@ -234,6 +261,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'green',
     padding: 10,
     borderRadius: 5,
+  },
+  hintButtonDisabled: {
+    backgroundColor: 'gray',
   },
   hintButtonText: {
     color: 'white',

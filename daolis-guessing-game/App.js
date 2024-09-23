@@ -35,7 +35,7 @@ export default function App() {
               inputNumber={inputNumber}
               onInputChange={setInputNumber}
               onSubmitGuess={handleGuess}
-              onBackToHome={() => props.navigation.navigate('Start')}
+              onBackToStartScreen={() => props.navigation.navigate('Start')}
             />
           )}
         </Stack.Screen>

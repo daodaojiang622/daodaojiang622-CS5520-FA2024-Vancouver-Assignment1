@@ -3,7 +3,7 @@ import { useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native';
 
-const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) => {
+const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScreen, navigation }) => {
   const [startButtonVisible, setStartButtonVisible] = useState(true);
   const [timer, setTimer] = useState(60);
   const [attempts, setAttempts] = useState(4);
@@ -69,6 +69,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
       return generateNum;
   };
 
+  // Generate a random number when the game starts
   useEffect(() => {
     setGenerateNum(getRandomNaturalNumber());
   }, []);
@@ -139,10 +140,12 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     }
   }
 
+  // Handle try again
   const handleTryAgain = () => {
     openSubmitModal();
   }
 
+  // Handle new game
   const handleNewGame = () => {
     openSubmitModal();
     setTimer(60);
@@ -152,6 +155,29 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
     setIsGameOver(false);
     setGenerateNum(getRandomNaturalNumber());
   }
+  
+  // handle restart, if user confirmes, navigate to start screen
+  const handleRestart = () => {
+    Alert.alert(
+      'Confirm Restart',
+      'Are you sure you want to go back to the home screen?',
+      [
+        {
+          text: 'Yes',
+          onPress: () => {
+            onBackToStartScreen();
+            navigation.navigate('Start');
+          },
+        },
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+      ],
+      { cancelable: false }
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -170,7 +196,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
             <TouchableOpacity
               style={styles.restartButton}
               visible={startButtonVisible}
-              onPress={openStartModal}
+              onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
             </TouchableOpacity>
@@ -207,7 +233,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
             <TouchableOpacity
               style={styles.restartButton}
               visible={startButtonVisible}
-              onPress={openStartModal}
+              onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
             </TouchableOpacity>
@@ -269,7 +295,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
             <TouchableOpacity
               style={styles.restartButton}
               visible={startButtonVisible}
-              onPress={openStartModal}
+              onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
             </TouchableOpacity>
@@ -308,7 +334,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
             <TouchableOpacity
               style={styles.restartButton}
               visible={startButtonVisible}
-              onPress={openStartModal}
+              onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
             </TouchableOpacity>

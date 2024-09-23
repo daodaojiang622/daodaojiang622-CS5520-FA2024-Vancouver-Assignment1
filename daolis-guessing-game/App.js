@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { NavigationContainer, useRoute } from '@react-navigation/native';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { View, StyleSheet } from 'react-native';
 import StartScreen from './screens/StartScreen';
 import GameScreen from './screens/GameScreen';
 import ConfirmScreen from './screens/ConfirmScreen';
@@ -37,11 +36,4 @@ export default function App() {
       </Stack.Navigator>
     </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+};

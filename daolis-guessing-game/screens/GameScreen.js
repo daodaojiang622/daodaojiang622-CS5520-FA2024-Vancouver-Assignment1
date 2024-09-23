@@ -9,15 +9,17 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
   const minGuessRange = 1;
   const maxGuessRange = 100;
   const loseImage = require('../assets/loseImage.png');
-  const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
   const endImage = require('../assets/endGameManually.webp');
+  
+  const [generateNum, setGenerateNum] = useState(null);
+  const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
 
   const [timer, setTimer] = useState(gameTime);
   const [attempts, setAttempts] = useState(gameAttempts);
   const [hintUsed, setHintUsed] = useState(false);
   const [hint, setHint] = useState('');
   const [userInput, setUserInput] = useState('');
-  const [generateNum, setGenerateNum] = useState(null);
+
   const [gameModalText, setGameModalText] = useState('');
   const [endModalText, setEndModalText] = useState('');
   const [endModalImage, setEndModalImage] = useState('');
@@ -55,7 +57,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
 
   const getRandomNaturalNumber = () => {
       const min = minGuessRange;
-      const max = max;
+      const max = maxGuessRange;
 
       let generateNum;
       do {
@@ -285,7 +287,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
           transparent={true}
           visible={gameModalVisible}
         >
-          <View style={styles.restartButtonContainer}>
+          <View style={styles.restartButtonGameModalContainer}>
             <TouchableOpacity
               style={styles.restartButton}
               visible={gameModalVisible}
@@ -462,7 +464,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     width: '100%',
   },
-  restartButtonContainer: {
+  restartButtonGameModalContainer: {
     position: 'absolute',
     top: 300,
     left: 285,

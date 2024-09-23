@@ -9,9 +9,11 @@ const StartScreen = ({ navigation, onStartGame }) => {
   const [email, setEmail] = useState('test@tegst.test');
   const [phone, setPhone] = useState('9876543219');
   const [isChecked, setIsChecked] = useState(true);
+
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+  
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleReset = () => {

@@ -123,10 +123,12 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
         return true;
       } else if (guess < generateNum) {
         setAttempts(attempts - 1);
+        openGameModal();
         setGameModalText('You did not guess correctly! \n Try a higher number.');
         return true;
       } else {
         setAttempts(attempts - 1);
+        openGameModal();
         setGameModalText('You did not guess correctly! \n Try a lower number.');
         return true;
       }

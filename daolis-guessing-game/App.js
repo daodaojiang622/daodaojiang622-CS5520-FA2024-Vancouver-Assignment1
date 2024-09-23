@@ -9,18 +9,6 @@ import ConfirmScreen from './screens/ConfirmScreen';
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [inputNumber, setInputNumber] = useState(null); // Assuming you have an input number for the game
-  const [isGameOver, setIsGameOver] = useState(false); // Track if the game is over
-
-  const handleGuess = (guess) => {
-    // Your logic for handling a guess (e.g., comparing with the target number)
-    // Set isGameOver to true when the game ends
-  };
-
-  const resetGame = () => {
-    setInputNumber(null);
-    setIsGameOver(false);
-  };
 
   return (
     <NavigationContainer>
@@ -32,9 +20,6 @@ export default function App() {
           {props => (
             <GameScreen
               {...props}
-              inputNumber={inputNumber}
-              onInputChange={setInputNumber}
-              onSubmitGuess={handleGuess}
               onBackToStartScreen={() => props.navigation.navigate('Start')}
             />
           )}
@@ -43,9 +28,7 @@ export default function App() {
           {props => (
             <ConfirmScreen
               {...props}
-              isGameOver={isGameOver}
               onPlayAgain={() => {
-                resetGame();
                 props.navigation.navigate('Start'); // Go back to Start screen after resetting
               }}
             />

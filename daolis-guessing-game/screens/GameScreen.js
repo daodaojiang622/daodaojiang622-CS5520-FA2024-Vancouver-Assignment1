@@ -1,42 +1,31 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
 
-const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScreen, navigation }) => {
-  const [startButtonVisible, setStartButtonVisible] = useState(true);
-  const [timer, setTimer] = useState(60);
-  const [attempts, setAttempts] = useState(4);
+const GameScreen = ({onBackToStartScreen, navigation }) => {
+  const gameTime = 60;
+  const gameAttempts = 4;
+  const minGuessRange = 1;
+  const maxGuessRange = 100;
+  const loseImage = require('../assets/loseImage.png');
+  const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
+  const endImage = require('../assets/endGameManually.webp');
+
+  const [timer, setTimer] = useState(gameTime);
+  const [attempts, setAttempts] = useState(gameAttempts);
   const [hintUsed, setHintUsed] = useState(false);
   const [hint, setHint] = useState('');
   const [userInput, setUserInput] = useState('');
   const [generateNum, setGenerateNum] = useState(null);
-  const [isGameOver, setIsGameOver] = useState(false);
   const [gameModalText, setGameModalText] = useState('');
   const [endModalText, setEndModalText] = useState('');
   const [endModalImage, setEndModalImage] = useState('');
-  const loseImage = require('../assets/loseImage.png');
-  const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
-  const endImage = require('../assets/endGameManually.webp');
 
   const [startModalVisible, setStartModalVisible] = useState(true);
   const [gameModalVisible, setGameModalVisible] = useState(false);
   const [endModalVisible, setEndModalVisible] = useState(false);
   const [submitModalVisible, setSubmitModalVisible] = useState(false);
-
-  const openStartModal = () => {
-    setStartModalVisible(true);
-    setGameModalVisible(false);
-    setEndModalVisible(false);
-    setSubmitModalVisible(false);
-
-    setTimer(60);
-    setAttempts(4);
-    setHintUsed(false);
-    setHint('');
-    setIsGameOver(false);
-    setGenerateNum(getRandomNaturalNumber());
-  };
 
   const openGameModal = () => {
     setStartModalVisible(false);
@@ -65,13 +54,13 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
   const lastPhoneDigit = phone.slice(-1); // Multiply the last digit of input phone number
 
   const getRandomNaturalNumber = () => {
-      const min = 1;
-      const max = 100;
+      const min = minGuessRange;
+      const max = max;
 
       let generateNum;
       do {
           generateNum = lastPhoneDigit * (Math.floor(Math.random() * (max - min + 1)) + min);
-      } while (generateNum > 100 || generateNum < 1);
+      } while (generateNum > maxGuessRange || generateNum < minGuessRange);
       return generateNum;
   };
 
@@ -89,7 +78,6 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
 
       return () => clearInterval(interval);
     } else if (timer === 0) {
-      setIsGameOver(true);
       openEndModal();
       setEndModalText('The game is over! \n You are out of time.');
       setEndModalImage(loseImage);
@@ -112,14 +100,13 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
 
     if (attempts > 1 && timer > 0) {
       // Check if the input is a number between 1 and 100
-      if (isNaN(guess) || guess < 1 || guess > 100) {
-        Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
+      if (isNaN(guess) || guess < minGuessRange || guess > maxGuessRange) {
+        Alert.alert('Invalid Input', `Please enter a number between ${minGuessRange} and ${maxGuessRange}.`);
         return false;
       } else if (guess === generateNum) {
         setAttempts(attempts - 1);
-        setIsGameOver(true);
         openEndModal();
-        setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
+        setEndModalText('You guesses correctly! \n Attempts used: ' + (gameAttempts - attempts + 1));
         setEndModalImage({ uri: winImage });
         return true;
       } else if (guess < generateNum) {
@@ -135,13 +122,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
       }
     } else if (attempts === 1) {
       if (guess === generateNum) {
-        setIsGameOver(true);
         openEndModal();
-        setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
+        setEndModalText('You guesses correctly! \n Attempts used: ' + ({gameAttempts} - attempts + 1));
         setEndModalImage({ uri: winImage });
         return true;
       } else {
-        setIsGameOver(true);
         openEndModal();
         setEndModalText('The game is over! \n You are out of attempts.');
         setEndModalImage(loseImage);
@@ -158,11 +143,10 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
   // Handle new game
   const handleNewGame = () => {
     openSubmitModal();
-    setTimer(60);
-    setAttempts(4);
+    setTimer(gameTime);
+    setAttempts(gameAttempts);
     setHintUsed(false);
     setHint('');
-    setIsGameOver(false);
     setGenerateNum(getRandomNaturalNumber());
   }
   
@@ -205,7 +189,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.restartButtonStartModalContainer}>
             <TouchableOpacity
               style={styles.restartButton}
-              visible={startButtonVisible}
+              visible={startModalVisible}
               onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
@@ -214,11 +198,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                You have 60 seconds and 4 {'\n'}
+                You have {gameTime} seconds and {gameAttempts} {'\n'}
                 attemps to guess a number {'\n'}
                 that is multiply of the {'\n'}
                 last digit of your phone {'\n'}
-                number {phone} & {lastPhoneDigit} & {generateNum} between 1 and 100.
+                number {phone} & {lastPhoneDigit} & {generateNum} between {minGuessRange} and {maxGuessRange}.
               </Text>
 
               <View style={styles.modalButtonContainer}>
@@ -242,7 +226,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
          <View style={styles.restartButtonSubmitModalContainer}>
             <TouchableOpacity
               style={styles.restartButton}
-              visible={startButtonVisible}
+              visible={submitModalVisible}
               onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
@@ -251,11 +235,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
             <Text style={styles.modalText}>
-                You have 60 seconds and 4 {'\n'}
+                You have {gameTime} seconds and {gameAttempts} {'\n'}
                 attemps to guess a number {'\n'}
                 that is multiply of the {'\n'}
                 last digit of your phone {'\n'}
-                number {phone} & {lastPhoneDigit} & {generateNum} between 1 and 100.
+                number {phone} & {lastPhoneDigit} & {generateNum} between {minGuessRange} and {maxGuessRange}.
               </Text>
 
             <View style={styles.gameContainer}>
@@ -304,7 +288,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.restartButtonContainer}>
             <TouchableOpacity
               style={styles.restartButton}
-              visible={startButtonVisible}
+              visible={gameModalVisible}
               onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>
@@ -348,7 +332,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.restartButtonEndModalContainer}>
             <TouchableOpacity
               style={styles.restartButton}
-              visible={startButtonVisible}
+              visible={endModalVisible}
               onPress={handleRestart}
             >
               <Text style={styles.restartButtonText}>Restart</Text>

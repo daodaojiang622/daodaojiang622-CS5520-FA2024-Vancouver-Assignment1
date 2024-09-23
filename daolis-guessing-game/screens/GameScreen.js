@@ -87,6 +87,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
       }, 1000);
 
       return () => clearInterval(interval);
+    } else if (timer === 0) {
+      setIsGameOver(true);
+      openEndModal();
+      setEndModalText('The game is over! \n You are out of time.');
+      setEndModalImage(loseImage);
     }
   }, [timer]);
 

@@ -100,18 +100,47 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
     }
   };
 
-  // Handle invalid guesses
-  const isValidGuess = (guess) => {
+  // Handle valid guess submission
+  const handleValidGuess = (guess) => {
+    if (guess === generateNum) {
+      // Set isGameOver to true when the game ends
+      setIsGameOver(true);
+      openEndModal();
+      setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
+      setEndModalImage({ uri: winImage });
+    } else if (guess < generateNum) {
+      setGameModalText('You did not guess correctly! \n Try a higher number.');
+    } else {
+      setGameModalText('You did not guess correctly! \n Try a lower number.');
+    }
+    setAttempts(attempts - 1);
+    setUserInput('');
+    return true;
+  };
+
+  // Handle guess submission
+  const handleSGuess = () => {
+    const guess = parseInt(userInput);
 
     if (attempts > 0 && timer > 0) {
       // Check if the input is a number between 1 and 100
       if (isNaN(guess) || guess < 1 || guess > 100) {
         Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
         return false;
-      } else {
-        // Decrease the number of attempts whith valid input
+      } else if (guess === generateNum) {
         setAttempts(attempts - 1);
-        setUserInput('');
+        setIsGameOver(true);
+        openEndModal();
+        setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
+        setEndModalImage({ uri: winImage });
+        return true;
+      } else if (guess < generateNum) {
+        setAttempts(attempts - 1);
+        setGameModalText('You did not guess correctly! \n Try a higher number.');
+        return true;
+      } else {
+        setAttempts(attempts - 1);
+        setGameModalText('You did not guess correctly! \n Try a lower number.');
         return true;
       }
     } else if (attempts === 0) {
@@ -127,33 +156,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
       setEndModalImage(loseImage);
       return false;
     } 
-  };
-
-  // Handle valid guess submission
-  const handleValidGuess = (guess) => {
-    if (guess === generateNum) {
-      // Set isGameOver to true when the game ends
-      setIsGameOver(true);
-      openEndModal();
-      setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
-      setEndModalImage({ uri: winImage });
-    } else if (guess < generateNum) {
-      setGameModalText('You did not guess correctly! \n Try a higher number.');
-    } else {
-      setGameModalText('You did not guess correctly! \n Try a lower number.');
-    }
-  };
-
-  // Handle guess submission
-  const handleSubmitGuess = () => {
-    const guess = parseInt(userInput);
-
-    if (isValidGuess(guess)) {
-      handleValidGuess(guess);
-      return true;
-    } else {
-      return false;
-    }
+    
   }
 
   // Handle try again
@@ -290,13 +293,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
 
                   <TouchableOpacity
                     style={styles.submitButton}
-                    onPress={() => {
-                      if (handleSubmitGuess()) {
-                      openGameModal();
-                      } else {
-                        openEndModal();
-                      }
-                    }}
+                    onPress={handleSGuess}
                   >
                     <Text style={styles.submitButtonText}>Submit Guess</Text>
                   </TouchableOpacity>
@@ -449,7 +446,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 20,
     borderBottomColor: 'purple',
-    bottomBorderWidth: 2,
+    borderBottomWidth: 2,
   },
   hintText: {
     fontSize: 15,

@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
-import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, Button, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
 
 const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScreen, navigation }) => {
   const [startButtonVisible, setStartButtonVisible] = useState(true);
@@ -12,6 +12,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
   const [userInput, setUserInput] = useState('');
   const [generateNum, setGenerateNum] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [gameModalText, setGameModalText] = useState('');
+  const [endModalText, setEndModalText] = useState('');
+  const [endModalImage, setEndModalImage] = useState('');
+  const loseImage = require('../assets/loseImage.png');
+  const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
 
   const [startModalVisible, setStartModalVisible] = useState(true);
   const [gameModalVisible, setGameModalVisible] = useState(false);
@@ -99,35 +104,43 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
   const isValidGuess = (guess) => {
 
     if (attempts > 0 && timer > 0) {
-      // Validation logic
+      // Check if the input is a number between 1 and 100
       if (isNaN(guess) || guess < 1 || guess > 100) {
         Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
         return false;
-      }
+      } else {
+        // Decrease the number of attempts whith valid input
         setAttempts(attempts - 1);
+        setUserInput('');
+        return true;
+      }
     } else if (attempts === 0) {
-      Alert.alert('Game Over', 'You have used all your attempts.');
       setIsGameOver(true);
+      openEndModal();
+      setEndModalText('The game is over! \n You are out of attempts.');
+      setEndModalImage(loseImage);
+      return false; 
     } else {
-      Alert.alert('Time Up', 'You have run out of time.');
       setIsGameOver(true);
-    }
-
-    // Reset user input after submission
-    setUserInput('');
-    return true;
+      openEndModal();
+      setEndModalText('The game is over! \n You are out of time.');
+      setEndModalImage(loseImage);
+      return false;
+    } 
   };
 
   // Handle valid guess submission
   const handleValidGuess = (guess) => {
     if (guess === generateNum) {
-      Alert.alert('Congratulations!', 'You have guessed the number correctly.');
       // Set isGameOver to true when the game ends
       setIsGameOver(true);
+      openEndModal();
+      setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
+      setEndModalImage({ uri: winImage });
     } else if (guess < generateNum) {
-      Alert.alert('Hint: Try a higher number');
+      setGameModalText('You did not guess correctly! \n Try a higher number.');
     } else {
-      Alert.alert('Hint: Try a lower number');
+      setGameModalText('You did not guess correctly! \n Try a lower number.');
     }
   };
 
@@ -137,6 +150,9 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
 
     if (isValidGuess(guess)) {
       handleValidGuess(guess);
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -274,7 +290,13 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
 
                   <TouchableOpacity
                     style={styles.submitButton}
-                    onPress={handleSubmitGuess && openGameModal}
+                    onPress={() => {
+                      if (handleSubmitGuess()) {
+                      openGameModal();
+                      } else {
+                        openEndModal();
+                      }
+                    }}
                   >
                     <Text style={styles.submitButtonText}>Submit Guess</Text>
                   </TouchableOpacity>
@@ -303,7 +325,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                game modal
+                {gameModalText}
               </Text>
 
               <View style={styles.gameModalButtonContainer}>
@@ -342,9 +364,10 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
-                End modal
+                {endModalText}
               </Text>
-
+              <Text style={styles.modalText}>{endModalText}</Text>
+              <Image source={endModalImage} style={styles.endModalImage} />
               <View style={styles.gameModalButtonContainer}>
                   <TouchableOpacity
                     style={styles.modalStartButton}
@@ -494,6 +517,11 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     zIndex: 1,
+  },
+  endModalImage: {
+    width: 100,
+    height: 100,
+    marginBottom: 20,
   },
 });
 

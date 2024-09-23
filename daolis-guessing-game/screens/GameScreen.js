@@ -105,29 +105,11 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
     }
   };
 
-  // Handle valid guess submission
-  const handleValidGuess = (guess) => {
-    if (guess === generateNum) {
-      // Set isGameOver to true when the game ends
-      setIsGameOver(true);
-      openEndModal();
-      setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
-      setEndModalImage({ uri: winImage });
-    } else if (guess < generateNum) {
-      setGameModalText('You did not guess correctly! \n Try a higher number.');
-    } else {
-      setGameModalText('You did not guess correctly! \n Try a lower number.');
-    }
-    setAttempts(attempts - 1);
-    setUserInput('');
-    return true;
-  };
-
   // Handle guess submission
   const handleSGuess = () => {
     const guess = parseInt(userInput);
 
-    if (attempts > 0 && timer > 0) {
+    if (attempts > 1 && timer > 0) {
       // Check if the input is a number between 1 and 100
       if (isNaN(guess) || guess < 1 || guess > 100) {
         Alert.alert('Invalid Input', 'Please enter a number between 1 and 100.');
@@ -148,20 +130,21 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
         setGameModalText('You did not guess correctly! \n Try a lower number.');
         return true;
       }
-    } else if (attempts === 0) {
-      setIsGameOver(true);
-      openEndModal();
-      setEndModalText('The game is over! \n You are out of attempts.');
-      setEndModalImage(loseImage);
-      return false; 
-    } else {
-      setIsGameOver(true);
-      openEndModal();
-      setEndModalText('The game is over! \n You are out of time.');
-      setEndModalImage(loseImage);
-      return false;
-    } 
-    
+    } else if (attempts === 1) {
+      if (guess === generateNum) {
+        setIsGameOver(true);
+        openEndModal();
+        setEndModalText('You guesses correctly! \n Attempts used: ' + (4 - attempts + 1));
+        setEndModalImage({ uri: winImage });
+        return true;
+      } else {
+        setIsGameOver(true);
+        openEndModal();
+        setEndModalText('The game is over! \n You are out of attempts.');
+        setEndModalImage(loseImage);
+        return false; 
+      }
+    }
   }
 
   // Handle try again

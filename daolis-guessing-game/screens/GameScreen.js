@@ -2,6 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
+import { Colors } from '../helpers/colors';
 
 const GameScreen = ({onBackToStartScreen, navigation }) => {
   const gameTime = 60;
@@ -10,7 +11,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
   const maxGuessRange = 100;
   const loseImage = require('../assets/loseImage.png');
   const endImage = require('../assets/endGameManually.webp');
-  
+
   const [generateNum, setGenerateNum] = useState(null);
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
 
@@ -178,7 +179,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#82cfef', '#6693f5', '#ac94f4']}
+        colors={Colors.linearGradient}
         style={styles.LinearGradient}
       >
 
@@ -366,7 +367,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'transparent',
+    backgroundColor: Colors.noButtonShape,
   },
   LinearGradient: {
     width: '100%',
@@ -378,15 +379,13 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   modalView: {
     width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: Colors.modalBackground,
     alignItems: 'center',
-    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
@@ -398,12 +397,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalStartButton: {
-    backgroundColor: 'blue',
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
   },
   modalStartButtonText: {
-    color: 'white',
+    color: Colors.buttonText,
   },
   gameContainer: {
     alignItems: 'center',
@@ -412,28 +411,28 @@ const styles = StyleSheet.create({
   timerText: {
     fontSize: 15,
     marginBottom: 20,
-    color: 'red',
+    color: Colors.danger,
   },
   attemptsText: {
     fontSize: 15,
     marginBottom: 20,
-    color: 'red',
+    color: Colors.danger,
   },
   input: {
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: Colors.noButtonShape,
     padding: 10,
     width: '80%',
     marginBottom: 20,
     textAlign: 'center',
     fontSize: 20,
-    borderBottomColor: 'purple',
+    borderBottomColor: Colors.borderColor,
     borderBottomWidth: 2,
   },
   hintText: {
     fontSize: 15,
     marginBottom: 20,
-    color: 'green',
+    color: Colors.hintText,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -441,23 +440,23 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   hintButton: {
-    backgroundColor: 'green',
+    backgroundColor: Colors.hintButton,
     padding: 10,
     borderRadius: 5,
   },
   hintButtonDisabled: {
-    backgroundColor: 'gray',
+    backgroundColor: Colors.disabled,
   },
   hintButtonText: {
-    color: 'white',
+    color: Colors.buttonText,
   },
   submitButton: {
-    backgroundColor: 'blue',
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
   },
   submitButtonText: {
-    color: 'white',
+    color: Colors.buttonText,
   },
   gameModalButtonContainer: {
     flexDirection: 'row',
@@ -468,19 +467,19 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 300,
     left: 285,
-    backgroundColor: 'blue',
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
     zIndex: 1,
   },
   restartButtonText: {  
-    color: 'white',
+    color: Colors.buttonText,
   },
   restartButtonSubmitModalContainer: {
     position: 'absolute',
     top: 160,
     left: 285,
-    backgroundColor: 'blue',
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
     zIndex: 1,
@@ -489,7 +488,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 250,
     left: 285,
-    backgroundColor: 'blue',
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
     zIndex: 1,
@@ -503,7 +502,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 230,
     left: 285,
-    backgroundColor: 'blue',
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
     zIndex: 1,

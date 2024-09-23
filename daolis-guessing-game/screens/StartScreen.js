@@ -13,9 +13,10 @@ const StartScreen = ({ navigation, onStartGame }) => {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-  
+
   const [modalVisible, setModalVisible] = useState(false);
 
+  // Reset all fields
   const handleReset = () => {
     setName('');
     setEmail('');
@@ -26,6 +27,7 @@ const StartScreen = ({ navigation, onStartGame }) => {
     setPhoneError('');
   };
 
+  // Validation name and raise an error if the name is less than 2 characters or contains a number
   const validateName = (value) => {
     if (!value || value.length <= 1 || /\d/.test(value)) {
       return 'Please enter a valid name (non-numeric and more than 1 character)';
@@ -33,6 +35,7 @@ const StartScreen = ({ navigation, onStartGame }) => {
     return '';
   };
 
+  // Validation email and raise an error if the email is not in the correct format
   const validateEmail = (value) => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(value)) {
@@ -41,6 +44,7 @@ const StartScreen = ({ navigation, onStartGame }) => {
     return '';
   };
 
+  // Validation phone and raise an error if the last digit is 0 or 1
   const validatePhone = (value) => {
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(value) || value[value.length - 1] === '0' || value[value.length - 1] === '1') {
@@ -49,6 +53,7 @@ const StartScreen = ({ navigation, onStartGame }) => {
     return '';
   };
 
+  // Register the user and show the confirmation modal
   const handleRegister = () => {
     const newNameError = validateName(name);
     const newEmailError = validateEmail(email);
@@ -63,9 +68,10 @@ const StartScreen = ({ navigation, onStartGame }) => {
     }
   };
 
+  // Continue to the game screen
   const handleContinue = () => {
     setModalVisible(false);
-    onStartGame(phone);
+    onStartGame({ phone });
     navigation.navigate('Game', { phone });
   };
 

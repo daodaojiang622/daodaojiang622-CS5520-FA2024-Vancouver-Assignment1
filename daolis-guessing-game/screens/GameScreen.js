@@ -166,6 +166,15 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToHome }) 
           transparent={true}
           visible={startModalVisible}
         >
+          <View style={styles.restartButtonStartModalContainer}>
+            <TouchableOpacity
+              style={styles.restartButton}
+              visible={startButtonVisible}
+              onPress={openStartModal}
+            >
+              <Text style={styles.restartButtonText}>Restart</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
@@ -437,17 +446,28 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     padding: 10,
     borderRadius: 5,
+    zIndex: 1,
   },
   restartButtonText: {  
     color: 'white',
   },
   restartButtonSubmitModalContainer: {
     position: 'absolute',
-    top: 150,
+    top: 160,
     left: 285,
     backgroundColor: 'blue',
     padding: 10,
     borderRadius: 5,
+    zIndex: 1,
+  },
+  restartButtonStartModalContainer: {
+    position: 'absolute',
+    top: 250,
+    left: 285,
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    zIndex: 1,
   },
 });
 

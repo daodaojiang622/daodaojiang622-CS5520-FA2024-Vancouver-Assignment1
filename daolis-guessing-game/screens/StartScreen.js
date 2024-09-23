@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
-import ConfirmScreen from './ConfirmScreen'; // Import your new component
+import ConfirmScreen from './ConfirmScreen';
+import { Colors } from '../helpers/colors'; 
 
 const StartScreen = ({ navigation, onStartGame }) => {
   const [name, setName] = useState('test');
@@ -78,7 +79,7 @@ const StartScreen = ({ navigation, onStartGame }) => {
   return (
     <View style={styles.container}>
       <LinearGradient
-        colors={['#82cfef', '#6693f5', '#ac94f4']}
+        colors={Colors.linearGradient}
         style={styles.LinearGradient}
       >
         <Text style={styles.welcomeText}>Welcome to Daoli's Guessing Game!</Text>
@@ -153,11 +154,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.noColor,
   },
   welcomeText: {
     fontSize: 20,
-    color: 'white',
+    color: Colors.buttonText,
     fontWeight: 'bold',
     marginBottom: 70,
     textAlign: 'center',
@@ -172,8 +173,7 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'white',
-    shadowColor: '#000',
+    backgroundColor: Colors.modalBackground,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 15,
-    color: 'purple',
+    color: Colors.primary,
     marginBottom: 10,
     marginTop: 10,
     textAlign: 'center',
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 5,
     marginVertical: 5,
-    borderBottomColor: 'purple',
+    borderBottomColor: Colors.borderColor,
     borderBottomWidth: 2,
   },
   checkboxContainer: {
@@ -199,11 +199,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginVertical: 10,
     marginTop: 30,
-    color: 'gray',
+    color: Colors.checkboxColor,
   },
   checkboxLabel: {
     marginLeft: 10,
-    color: 'gray',
+    color: Colors.checkboxColor,
   },
   buttonContainer: {
     marginTop: 20,
@@ -212,30 +212,30 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   resetButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,
     width: 100,
     alignItems: 'center',
   },
   registerButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,
     width: 100,
     alignItems: 'center',
   },
   resetButtonText: {
-    color: 'red',
+    color: Colors.danger,
   },
   registerButtonText: {
-    color: 'blue',
+    color: Colors.secondary,
   },
   disabledText: {
-    color: 'lightgray',
+    color: Colors.disabled,
   },
   errorText: {
-    color: 'red',
+    color: Colors.danger,
     fontSize: 12,
     marginBottom: 10,
   },

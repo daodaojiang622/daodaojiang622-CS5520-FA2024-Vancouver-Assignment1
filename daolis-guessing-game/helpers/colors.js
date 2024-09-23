@@ -1,25 +1,24 @@
 // colors.js
 export const Colors = {
+    // background colors
     linearGradient: ['#82cfef', '#6693f5', '#ac94f4'],
     modalBackground: 'white',
+    modalShadow: 'rgba(0, 0, 0, 0.5)',
+
+    // button colors
+    buttonText: 'white',
+    buttonBackground: 'blue',
 
     borderColor: 'purple',
 
-    // text colors
-    buttonText: 'white',
-    hintText: 'green',
+    // functional colors
+    hint: 'green',
     danger: 'red',
-
-
-    primary: 'blue',
-    secondary: 'green',
-
-    // background colors
     disabled: 'gray',
-    buttonBackground: 'blue',
-    noButtonShape: 'transparent',
-    hintButton: 'green',
+    noColor: 'transparent',
 
-    // Add more colors as needed
+    primary: 'purple',
+    secondary: 'blue',
+
   };
   

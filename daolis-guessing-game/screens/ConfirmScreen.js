@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { Colors } from '../helpers/colors';
 
 const ConfirmationScreen = ({ visible, name, email, phone, onClose, onContinue }) => {
   return (
@@ -47,15 +48,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: Colors.modalShadow,
   },
   modalView: {
     width: '80%',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: 'white',
+    backgroundColor: Colors.modalBackground,
     alignItems: 'center',
-    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.3,
     shadowRadius: 5,
@@ -67,16 +67,16 @@ const styles = StyleSheet.create({
     textAlign: 'left',
   },
   modalGoBackButton: {
-    backgroundColor: 'transparent',
+    backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,
   },
   modalGoBackButtonText: {
-    color: 'red',
+    color: Colors.danger,
     fontWeight: 'bold',
   },
   modalContinueButtonText: {
-    color: 'blue',
+    color: Colors.secondary,
     fontWeight: 'bold',
   },
   modalButtonContainer: {

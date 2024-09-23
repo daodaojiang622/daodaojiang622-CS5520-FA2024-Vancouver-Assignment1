@@ -367,7 +367,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: Colors.noButtonShape,
+    backgroundColor: Colors.noColor,
   },
   LinearGradient: {
     width: '100%',
@@ -420,7 +420,7 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: Colors.noButtonShape,
+    borderColor: Colors.noColor,
     padding: 10,
     width: '80%',
     marginBottom: 20,
@@ -432,7 +432,7 @@ const styles = StyleSheet.create({
   hintText: {
     fontSize: 15,
     marginBottom: 20,
-    color: Colors.hintText,
+    color: Colors.hint,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -440,7 +440,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   hintButton: {
-    backgroundColor: Colors.hintButton,
+    backgroundColor: Colors.hint,
     padding: 10,
     borderRadius: 5,
   },

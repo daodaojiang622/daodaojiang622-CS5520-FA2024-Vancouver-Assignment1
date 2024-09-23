@@ -352,7 +352,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           transparent={true}
           visible={endModalVisible}
         >
-          <View style={styles.restartButtonContainer}>
+          <View style={styles.restartButtonEndModalContainer}>
             <TouchableOpacity
               style={styles.restartButton}
               visible={startButtonVisible}
@@ -363,9 +363,6 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
           </View>
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                {endModalText}
-              </Text>
               <Text style={styles.modalText}>{endModalText}</Text>
               <Image source={endModalImage} style={styles.endModalImage} />
               <View style={styles.gameModalButtonContainer}>
@@ -522,6 +519,15 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginBottom: 20,
+  },
+  restartButtonEndModalContainer: {
+    position: 'absolute',
+    top: 230,
+    left: 285,
+    backgroundColor: 'blue',
+    padding: 10,
+    borderRadius: 5,
+    zIndex: 1,
   },
 });
 

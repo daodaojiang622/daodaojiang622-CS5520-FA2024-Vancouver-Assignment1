@@ -17,6 +17,7 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
   const [endModalImage, setEndModalImage] = useState('');
   const loseImage = require('../assets/loseImage.png');
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
+  const endImage = require('../assets/endGameManually.webp');
 
   const [startModalVisible, setStartModalVisible] = useState(true);
   const [gameModalVisible, setGameModalVisible] = useState(false);
@@ -324,7 +325,12 @@ const GameScreen = ({inputNumber, onInputChange, onSubmitGuess, onBackToStartScr
                   </TouchableOpacity>
                   <TouchableOpacity
                     style={styles.modalStartButton}
-                    onPress={openEndModal}
+                    onPress={() => {
+                        openEndModal();
+                        setEndModalText('The game is over! \n Click below to restart.');
+                        setEndModalImage(endImage);
+                      }
+                    }
                   >
                     <Text style={styles.modalStartButtonText}>End The Game</Text>
                   </TouchableOpacity>

@@ -1,10 +1,10 @@
 import { LinearGradient } from 'expo-linear-gradient';
-import { useRoute } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/colors';
 
-const GameScreen = ({onBackToStartScreen, navigation }) => {
+const GameScreen = ({onBackToStart, phone}) => {
+
   const gameTime = 60;
   const gameAttempts = 4;
   const minGuessRange = 1;
@@ -38,6 +38,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
   };
 
   const openEndModal = () => {
+    console.log('openEndModal');
     setStartModalVisible(false);
     setGameModalVisible(false);
     setEndModalVisible(true);
@@ -52,9 +53,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
     setUserInput('');
   };
 
-  const { phone } = useRoute().params;
-
-  const lastPhoneDigit = phone.slice(-1); // Multiply the last digit of input phone number
+  const lastPhoneDigit = String(phone).slice(-1); // the last digit of input phone number
 
   const getRandomNaturalNumber = () => {
       const min = minGuessRange;
@@ -162,8 +161,7 @@ const GameScreen = ({onBackToStartScreen, navigation }) => {
         {
           text: 'Yes',
           onPress: () => {
-            onBackToStartScreen();
-            navigation.navigate('Start');
+            onBackToStart();
           },
         },
         {

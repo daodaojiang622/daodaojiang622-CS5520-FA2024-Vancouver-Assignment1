@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import Checkbox from 'expo-checkbox';
 import { LinearGradient } from 'expo-linear-gradient';
-import ConfirmScreen from './ConfirmScreen';
 import { Colors } from '../helpers/colors'; 
 
-const StartScreen = ({ navigation, onStartGame }) => {
+const StartScreen = ({ onConfirm }) => {
   const [name, setName] = useState('test');
   const [email, setEmail] = useState('test@tegst.test');
   const [phone, setPhone] = useState('9876543219');
@@ -14,8 +13,6 @@ const StartScreen = ({ navigation, onStartGame }) => {
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
-
-  const [modalVisible, setModalVisible] = useState(false);
 
   // Reset all fields
   const handleReset = () => {
@@ -65,15 +62,8 @@ const StartScreen = ({ navigation, onStartGame }) => {
     setPhoneError(newPhoneError);
 
     if (!newNameError && !newEmailError && !newPhoneError && isChecked) {
-      setModalVisible(true);
+      onConfirm(name, email, phone);
     }
-  };
-
-  // Continue to the game screen
-  const handleContinue = () => {
-    setModalVisible(false);
-    onStartGame({ phone });
-    navigation.navigate('Game', { phone });
   };
 
   return (
@@ -135,16 +125,6 @@ const StartScreen = ({ navigation, onStartGame }) => {
             </TouchableOpacity>
           </View>
         </View>
-
-        {/* Confirmation Modal */}
-        <ConfirmScreen
-          visible={modalVisible}
-          name={name}
-          email={email}
-          phone={phone}
-          onClose={() => setModalVisible(false)}
-          onContinue={handleContinue}
-        />
       </LinearGradient>
     </View>
   );

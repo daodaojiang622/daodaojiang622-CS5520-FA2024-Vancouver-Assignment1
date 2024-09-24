@@ -2,13 +2,13 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { Colors } from '../helpers/colors';
 
-const ConfirmationScreen = ({ visible, name, email, phone, onClose, onContinue }) => {
+const ConfirmScreen = ({ name, email, phone, onGoBack, onStartGame }) => {
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={visible}
-      onRequestClose={onClose}
+      visible={true}
+      onRequestClose={onGoBack}
     >
       <View style={styles.modalContainer}>
         <View style={styles.modalView}>
@@ -26,13 +26,13 @@ const ConfirmationScreen = ({ visible, name, email, phone, onClose, onContinue }
           <View style={styles.modalButtonContainer}>
             <TouchableOpacity
               style={styles.modalGoBackButton}
-              onPress={onClose}
+              onPress={onGoBack}
             >
               <Text style={styles.modalGoBackButtonText}>Go Back</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.modalGoBackButton}
-              onPress={onContinue}
+              style={styles.modalContinueButton}
+              onPress={onStartGame}
             >
               <Text style={styles.modalContinueButtonText}>Continue</Text>
             </TouchableOpacity>
@@ -75,6 +75,11 @@ const styles = StyleSheet.create({
     color: Colors.danger,
     fontWeight: 'bold',
   },
+  modalContinueButton: {
+    backgroundColor: Colors.noColor,
+    padding: 10,
+    borderRadius: 5,
+  },
   modalContinueButtonText: {
     color: Colors.secondary,
     fontWeight: 'bold',
@@ -86,4 +91,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConfirmationScreen;
+export default ConfirmScreen;

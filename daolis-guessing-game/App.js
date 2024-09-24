@@ -3,6 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import StartScreen from './screens/StartScreen';
 import GameScreen from './screens/GameScreen';
 import ConfirmScreen from './screens/ConfirmScreen';
+import modalShadow from './helpers/colors';
 
 export default function App() {
   const [name, setName] = useState('');
@@ -11,6 +12,8 @@ export default function App() {
 
   const [currentScreen, setCurrentScreen] = useState('Start'); // Initial screen
   const [isConfirmModalVisible, setConfirmModalVisible] = useState(false);
+
+  const [startModalVisible, setStartModalVisible] = useState(true);
 
   const handleConfirm = (enteredName, enteredEmail, enteredPhoneNumber) => {
     setName(enteredName); // Store name
@@ -68,6 +71,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', 
+    backgroundColor: modalShadow, 
   },
 });

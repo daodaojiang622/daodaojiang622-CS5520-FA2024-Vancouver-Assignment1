@@ -30,7 +30,10 @@ const GameScreen = ({onBackToStart, phone}) => {
   const [endModalVisible, setEndModalVisible] = useState(false);
   const [submitModalVisible, setSubmitModalVisible] = useState(false);
 
+  console.log('start modal', startModalVisible);
+
   const openGameModal = () => {
+    console.log('game modal', gameModalVisible);
     setStartModalVisible(false);
     setGameModalVisible(true);
     setEndModalVisible(false);
@@ -38,7 +41,6 @@ const GameScreen = ({onBackToStart, phone}) => {
   };
 
   const openEndModal = () => {
-    console.log('openEndModal');
     setStartModalVisible(false);
     setGameModalVisible(false);
     setEndModalVisible(true);
@@ -46,6 +48,7 @@ const GameScreen = ({onBackToStart, phone}) => {
   };
 
   const openSubmitModal = () => {
+    console.log('submit modal', submitModalVisible);
     setStartModalVisible(false);
     setGameModalVisible(false);
     setEndModalVisible(false);
@@ -53,7 +56,7 @@ const GameScreen = ({onBackToStart, phone}) => {
     setUserInput('');
   };
 
-  const lastPhoneDigit = String(phone).slice(-1); // the last digit of input phone number
+  const lastPhoneDigit = phone.slice(-1); // the last digit of input phone number
 
   const getRandomNaturalNumber = () => {
       const min = minGuessRange;

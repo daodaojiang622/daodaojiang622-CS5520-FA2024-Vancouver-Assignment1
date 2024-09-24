@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.borderColor,
     borderBottomWidth: 2,
     alignContent: 'center',
-    width: '100%',
+    width: 270,
   },
   errorText: {
     color: Colors.danger,

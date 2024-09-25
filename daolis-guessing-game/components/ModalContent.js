@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Colors } from '../helpers/colors';
 
-const ModalContent = ({ name, email, phone, textChildren, children }) => {
+const ModalContent = ({ textChildren, children }) => {
   return (
     <View style={styles.modalView}>
       <Text style={styles.modalText}>

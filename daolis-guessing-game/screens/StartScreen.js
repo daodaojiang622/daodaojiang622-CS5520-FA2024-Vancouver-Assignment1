@@ -97,11 +97,15 @@ const StartScreen = ({ onConfirm }) => {
             label="I am not a robot" 
           />
           <View style={styles.buttonContainer}>
-            <Button title="Reset" onPress={handleReset} />
+            <Button 
+            title="Reset" 
+            onPress={handleReset} 
+            textStyle={styles.resetButtonText}/>
             <Button 
               title="Register" 
               onPress={handleRegister} 
               disabled={!isChecked} 
+              textStyle={styles.registerButtonText}
             />
           </View>
         </View>
@@ -132,6 +136,12 @@ const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-around',
+  },
+  resetButtonText: {
+    color: Colors.danger,
+  },
+  registerButtonText: {
+    color: Colors.primary,
   },
 });
 

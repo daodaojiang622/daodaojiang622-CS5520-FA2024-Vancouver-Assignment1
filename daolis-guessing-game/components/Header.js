@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import buttonText from '../helpers/colors';
+import {Colors} from '../helpers/colors';
 
 const Header = ({ title }) => {
   return (
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: 'bold',
-    color: buttonText,
+    color: Colors.buttonText,
     marginBottom: 70,
     marginTop: 160,
     textAlign: 'center',

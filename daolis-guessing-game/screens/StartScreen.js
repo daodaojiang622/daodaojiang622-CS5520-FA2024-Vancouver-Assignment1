@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import GradientBackground from '/Users/chenyujiang/Desktop/5520/daodaojiang622-CS5520-FA2024-Vancouver-Assignment1/daolis-guessing-game/components/GradiantBackground.js';
 import { Colors } from '../helpers/colors'; 
 import InputField from '../components/InputField.js';
 import CheckboxWithLabel from '../components/CheckBoxWithLabel.js';
@@ -64,11 +64,8 @@ const StartScreen = ({ onConfirm }) => {
   };
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={Colors.linearGradient}
-        style={styles.LinearGradient}
-      >
+    <GradientBackground>
+      <View style={styles.container}>
         <Text style={styles.welcomeText}>Welcome to Daoli's Guessing Game!</Text>
         <View style={styles.card}>
           <InputField 
@@ -107,8 +104,8 @@ const StartScreen = ({ onConfirm }) => {
             />
           </View>
         </View>
-      </LinearGradient>
-    </View>
+      </View>
+    </GradientBackground>
   );
 };
 
@@ -122,14 +119,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: Colors.buttonText,
     fontWeight: 'bold',
+    marginTop: 150,
     marginBottom: 70,
     textAlign: 'center',
-  },
-  LinearGradient: {
-    width: '100%',
-    height: '100%',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   card: {
     width: '80%',
@@ -140,7 +133,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 5,
     elevation: 5,
-    alignItems: 'left',
+    alignItems: '',
   },
   buttonContainer: {
     marginTop: 20,

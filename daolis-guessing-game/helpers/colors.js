@@ -22,5 +22,6 @@ export const Colors = {
 
     primary: 'purple',
     secondary: 'blue',
+
   };
   

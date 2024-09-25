@@ -5,6 +5,7 @@ import { Colors } from '../helpers/colors';
 import InputField from '../components/InputField.js';
 import CheckboxWithLabel from '../components/CheckBoxWithLabel.js';
 import Button from '../components/Button.js';
+import Header from '../components/Header.js';
 
 const StartScreen = ({ onConfirm }) => {
   const [name, setName] = useState('test');
@@ -66,7 +67,7 @@ const StartScreen = ({ onConfirm }) => {
   return (
     <GradientBackground>
       <View style={styles.container}>
-        <Text style={styles.welcomeText}>Welcome to Daoli's Guessing Game!</Text>
+        <Header title="Welcome to Daoli's Guessing Game!" />
         <View style={styles.card}>
           <InputField 
             label="Name" 
@@ -114,15 +115,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: Colors.noColor,
-  },
-  welcomeText: {
-    fontSize: 20,
-    color: Colors.buttonText,
-    fontWeight: 'bold',
-    marginTop: 150,
-    marginBottom: 70,
-    textAlign: 'center',
-    justifyContent: 'center',
   },
   card: {
     width: '80%',

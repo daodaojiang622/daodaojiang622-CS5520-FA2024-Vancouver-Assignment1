@@ -2,19 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Colors } from '../helpers/colors';
 
-const ModalContent = ({ name, email, phone, children }) => {
+const ModalContent = ({ name, email, phone, textChildren, children }) => {
   return (
     <View style={styles.modalView}>
       <Text style={styles.modalText}>
-        Hello {name}, {'\n'}
-        {'\n'} 
-        Here is the information you entered:{'\n'}
-        {'\n'}
-        Name: {name}{'\n'}
-        Email: {email}{'\n'}
-        Phone: {phone}{'\n'}
-        {'\n'}
-        If this is not correct, please go back and edit them.
+        {textChildren}
       </Text>
       {children}
     </View>

@@ -255,10 +255,23 @@ const GameScreen = ({onBackToStart, phone}) => {
             <Text style={styles.cardText}>{gameCardText}</Text>
 
             <View style={styles.cardButtonContainer}>
-              <Button onPress={handleTryAgain} title="Try Again" buttonStyle={styles.cardStartButton} />
-              <TouchableOpacity style={styles.cardStartButton} onPress={handleNewGame}>
-                <Text style={styles.cardStartButtonText}>End The Game</Text>
-              </TouchableOpacity>
+              <Button 
+                title="Try Again" 
+                onPress={handleTryAgain} 
+                buttonStyle={styles.cardStartButton}
+              />
+
+              <Button 
+                title="End The Game" 
+                textStyle={styles.cardStartButtonText}
+                buttonStyle={styles.cardStartButton}
+                onPress={() => {
+                  openEndCard();
+                  setEndCardText('The game is over! \n Click below to restart.');
+                  setEndCardImage(endImage);
+                  }
+                }
+              />
             </View>
           </Card>
         </View>

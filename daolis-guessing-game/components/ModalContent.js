@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 18,
-    marginBottom: 20,
-    textAlign: 'left',
+    textAlign: 'flex-start',
   },
 });
 

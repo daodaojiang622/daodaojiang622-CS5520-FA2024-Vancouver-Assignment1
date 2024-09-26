@@ -7,15 +7,15 @@ import Button from '../components/Button';
 
 const ConfirmScreen = ({ name, email, phone, onGoBack, onStartGame }) => {
   const confirmText = `
-  Hello ${name},
+Hello ${name},
 
-  Here is the information you entered:
+Here is the information you entered:
 
-    Name: ${name}
-    Email: ${email}
-    Phone: ${phone}
+  Name: ${name}
+  Email: ${email}
+  Phone: ${phone}
 
-  If this is not correct, please go back and edit them.
+If this is not correct, please go back and edit them.
   `;
 
   return (

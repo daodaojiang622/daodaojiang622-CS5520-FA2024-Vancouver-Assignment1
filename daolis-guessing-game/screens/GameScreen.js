@@ -170,6 +170,13 @@ const GameScreen = ({onBackToStart, phone}) => {
       {/* Start Card */}
       {startCardVisible && (
         <View style={styles.cardContainer}>
+          <Button 
+            title="Restart" 
+            onPress={handleRestart} 
+            textStyle={styles.restartButtonText}
+            buttonStyle={styles.restartButtonStartCard}
+          />
+
           <Card>
             <Text style={styles.cardText}>
               You have {gameTime} seconds and {gameAttempts} {'\n'}
@@ -190,7 +197,14 @@ const GameScreen = ({onBackToStart, phone}) => {
       {/* Submit Card */}
       {submitCardVisible && (
         <View style={styles.cardContainer}>
-          <View style={styles.cardView}>
+          <Button 
+            title="Restart" 
+            onPress={handleRestart} 
+            textStyle={styles.restartButtonText}
+            buttonStyle={styles.restartButtonSubmitCard}
+          />
+
+          <Card>
             <Text style={styles.cardText}>
               Time left: {timer} seconds
               Attempts left: {attempts}
@@ -223,14 +237,21 @@ const GameScreen = ({onBackToStart, phone}) => {
                 textStyle={styles.submitButtonText}
               />
             </View>
-          </View>
+          </Card>
         </View>
       )}
 
       {/* Game Card */}
       {gameCardVisible && (
         <View style={styles.cardContainer}>
-          <View style={styles.cardView}>
+          <Button 
+            title="Restart" 
+            onPress={handleRestart} 
+            textStyle={styles.restartButtonText}
+            buttonStyle={styles.restartButtonGameCard}
+          />
+
+          <Card>
             <Text style={styles.cardText}>{gameCardText}</Text>
 
             <View style={styles.cardButtonContainer}>
@@ -239,22 +260,31 @@ const GameScreen = ({onBackToStart, phone}) => {
                 <Text style={styles.cardStartButtonText}>End The Game</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </Card>
         </View>
       )}
 
       {/* End Card */}
       {endCardVisible && (
         <View style={styles.cardContainer}>
-          <View style={styles.cardView}>
+        <Button 
+            title="Restart" 
+            onPress={handleRestart} 
+            textStyle={styles.restartButtonText}
+            buttonStyle={styles.restartButtonEndCard}
+          />
+
+          <Card>
             <Text style={styles.cardText}>{endCardText}</Text>
             <Image source={endCardImage} style={styles.endCardImage} />
-            <View style={styles.cardButtonContainer}>
-              <TouchableOpacity style={styles.cardStartButton} onPress={handleNewGame}>
-                <Text style={styles.cardStartButtonText}>New Game</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+
+            <Button 
+            title="New Game" 
+            onPress={handleNewGame} 
+            textStyle={styles.cardStartButtonText}
+            buttonStyle={styles.cardButtonContainer}
+            />
+          </Card>
         </View>
       )}
     </GradientBackground>
@@ -339,6 +369,18 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginVertical: 20,
+  },
+  restartButtonStartCard: {
+    backgroundColor: Colors.danger,
+    padding: 10,
+    borderRadius: 5,
+    position: 'absolute',
+    top: 150,
+    right: 50,
+  },
+  restartButtonText: {
+    color: 'white',
+    fontSize: 16,
   },
 });
 

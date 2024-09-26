@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '70%',
-    marginTop: 20,
+    padding: 20,
   },
   goBackButtonText: {
     color: Colors.danger,

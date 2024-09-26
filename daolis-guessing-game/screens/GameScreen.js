@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
 import GradientBackground from '../components/GradiantBackground';
+import Button from '../components/Button';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -259,6 +260,7 @@ const GameScreen = ({onBackToStart, phone}) => {
               {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
 
                 <View style={styles.buttonContainer}>
+                  
                   <TouchableOpacity
                     style={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
                     onPress={handleUseHint}
@@ -267,12 +269,12 @@ const GameScreen = ({onBackToStart, phone}) => {
                     <Text style={styles.hintButtonText}>Use a Hint</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity
-                    style={styles.submitButton}
-                    onPress={handleSGuess}
-                  >
-                    <Text style={styles.submitButtonText}>Submit Guess</Text>
-                  </TouchableOpacity>
+                  <Button 
+                    onPress={handleSGuess} 
+                    title="Submit Guess" 
+                    buttonStyle={styles.submitButton}
+                    textStyle={styles.submitButtonText} 
+                  />
                 </View>
               </View>
             </View>  
@@ -451,6 +453,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
+    width: 120,
   },
   submitButtonText: {
     color: Colors.buttonText,

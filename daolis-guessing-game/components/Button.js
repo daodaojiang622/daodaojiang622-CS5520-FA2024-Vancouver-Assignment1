@@ -2,10 +2,10 @@ import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Colors } from '../helpers/Colors'; 
 
-const Button = ({ onPress, title, disabled, textStyle }) => {
+const Button = ({ onPress, title, disabled, buttonStyle, textStyle }) => {
   return (
     <TouchableOpacity 
-      style={[styles.button, disabled && styles.disabled]} 
+      style={[styles.button, buttonStyle, disabled && styles.disabled]} 
       onPress={onPress} 
       disabled={disabled}
     >

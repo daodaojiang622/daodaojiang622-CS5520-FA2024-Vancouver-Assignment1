@@ -189,13 +189,13 @@ const GameScreen = ({onBackToStart, phone}) => {
           visible={true}
         >
           <View style={styles.restartButtonStartModalContainer}>
-            <TouchableOpacity
-              style={styles.restartButton}
-              visible={startModalVisible}
-              onPress={handleRestart}
-            >
-              <Text style={styles.restartButtonText}>Restart</Text>
-            </TouchableOpacity>
+            <Button 
+                title="Restart" 
+                buttonStyle={styles.restartButton}
+                textStyle={styles.restartButtonText} 
+                onPress={handleRestart}
+                visible={endModalVisible}
+              />
           </View>
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
@@ -208,12 +208,12 @@ const GameScreen = ({onBackToStart, phone}) => {
               </Text>
 
               <View style={styles.modalButtonContainer}>
-                <TouchableOpacity
-                  style={styles.modalStartButton}
+                <Button 
+                  title="Start" 
+                  buttonStyle={styles.modalStartButton}
+                  textStyle={styles.modalStartButtonText} 
                   onPress={openSubmitModal}
-                >
-                  <Text style={styles.modalStartButtonText}>Start</Text>
-                </TouchableOpacity>
+                />
               </View>
             </View>
           </View>
@@ -226,13 +226,13 @@ const GameScreen = ({onBackToStart, phone}) => {
           visible={submitModalVisible}
         >
          <View style={styles.restartButtonSubmitModalContainer}>
-            <TouchableOpacity
-              style={styles.restartButton}
-              visible={submitModalVisible}
-              onPress={handleRestart}
-            >
-              <Text style={styles.restartButtonText}>Restart</Text>
-            </TouchableOpacity>
+          <Button 
+                title="Restart" 
+                buttonStyle={styles.restartButton}
+                textStyle={styles.restartButtonText} 
+                onPress={handleRestart}
+                visible={endModalVisible}
+              />
           </View>
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
@@ -289,14 +289,15 @@ const GameScreen = ({onBackToStart, phone}) => {
           visible={gameModalVisible}
         >
           <View style={styles.restartButtonGameModalContainer}>
-            <TouchableOpacity
-              style={styles.restartButton}
-              visible={gameModalVisible}
+          <Button 
+              title="Restart" 
+              buttonStyle={styles.restartButton}
+              textStyle={styles.restartButtonText} 
               onPress={handleRestart}
-            >
-              <Text style={styles.restartButtonText}>Restart</Text>
-            </TouchableOpacity>
+              visible={endModalVisible}
+            />
           </View>
+
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>
@@ -305,8 +306,8 @@ const GameScreen = ({onBackToStart, phone}) => {
 
               <View style={styles.gameModalButtonContainer}>
                 <Button 
-                    onPress={handleTryAgain} 
                     title="Try Again" 
+                    onPress={handleTryAgain} 
                     buttonStyle={styles.modalTryAgainButton}
                     textStyle={styles.modalTryAgainButtonText} 
                   />
@@ -341,7 +342,7 @@ const GameScreen = ({onBackToStart, phone}) => {
               visible={endModalVisible}
             />
           </View>
-          
+
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>{endModalText}</Text>

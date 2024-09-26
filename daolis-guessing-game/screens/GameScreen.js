@@ -333,14 +333,15 @@ const GameScreen = ({onBackToStart, phone}) => {
           visible={endModalVisible}
         >
           <View style={styles.restartButtonEndModalContainer}>
-            <TouchableOpacity
-              style={styles.restartButton}
-              visible={endModalVisible}
+            <Button 
+              title="Restart" 
+              buttonStyle={styles.restartButton}
+              textStyle={styles.restartButtonText} 
               onPress={handleRestart}
-            >
-              <Text style={styles.restartButtonText}>Restart</Text>
-            </TouchableOpacity>
+              visible={endModalVisible}
+            />
           </View>
+          
           <View style={styles.modalContainer}>
             <View style={styles.modalView}>
               <Text style={styles.modalText}>{endModalText}</Text>

@@ -98,9 +98,11 @@ const StartScreen = ({ onConfirm }) => {
           />
           <View style={styles.buttonContainer}>
             <Button 
-            title="Reset" 
-            onPress={handleReset} 
-            textStyle={styles.resetButtonText}/>
+              title="Reset" 
+              onPress={handleReset} 
+              textStyle={styles.resetButtonText}
+            />
+            
             <Button 
               title="Register" 
               onPress={handleRegister} 
@@ -108,6 +110,7 @@ const StartScreen = ({ onConfirm }) => {
               textStyle={styles.registerButtonText}
             />
           </View>
+          
         </View>
       </View>
     </GradientBackground>

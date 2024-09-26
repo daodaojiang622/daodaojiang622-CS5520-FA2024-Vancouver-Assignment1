@@ -304,12 +304,12 @@ const GameScreen = ({onBackToStart, phone}) => {
               </Text>
 
               <View style={styles.gameModalButtonContainer}>
-                  <TouchableOpacity
-                    style={styles.modalStartButton}
-                    onPress={handleTryAgain}
-                  >
-                    <Text style={styles.modalStartButtonText}>Try Again</Text>
-                  </TouchableOpacity>
+              <Button 
+                    onPress={handleTryAgain} 
+                    title="Try Again" 
+                    buttonStyle={styles.modalStartButton}
+                    textStyle={styles.modalStartButtonText} 
+                  />
                   <TouchableOpacity
                     style={styles.modalStartButton}
                     onPress={() => {

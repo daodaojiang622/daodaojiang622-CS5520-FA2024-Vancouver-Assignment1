@@ -304,23 +304,23 @@ const GameScreen = ({onBackToStart, phone}) => {
               </Text>
 
               <View style={styles.gameModalButtonContainer}>
-              <Button 
+                <Button 
                     onPress={handleTryAgain} 
                     title="Try Again" 
-                    buttonStyle={styles.modalStartButton}
-                    textStyle={styles.modalStartButtonText} 
+                    buttonStyle={styles.modalTryAgainButton}
+                    textStyle={styles.modalTryAgainButtonText} 
                   />
-                  <TouchableOpacity
-                    style={styles.modalStartButton}
+                <Button 
+                    title="End The Game" 
+                    buttonStyle={styles.modalEndGameButton}
+                    textStyle={styles.modalEndGameButtonText} 
                     onPress={() => {
-                        openEndModal();
-                        setEndModalText('The game is over! \n Click below to restart.');
-                        setEndModalImage(endImage);
-                      }
+                      openEndModal();
+                      setEndModalText('The game is over! \n Click below to restart.');
+                      setEndModalImage(endImage);
                     }
-                  >
-                    <Text style={styles.modalStartButtonText}>End The Game</Text>
-                  </TouchableOpacity>
+                  }
+                  />
                 </View>
             </View>
           </View>
@@ -401,6 +401,24 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   modalStartButtonText: {
+    color: Colors.buttonText,
+  },
+  modalTryAgainButton: {
+    backgroundColor: Colors.buttonBackground,
+    padding: 10,
+    borderRadius: 5,
+    width: 90,
+  },
+  modalTryAgainButtonText: {
+    color: Colors.buttonText,
+  },
+  modalEndGameButton: {
+    backgroundColor: Colors.danger,
+    padding: 10,
+    borderRadius: 5,
+    width: 120,
+  },
+  modalEndGameButtonText: {
     color: Colors.buttonText,
   },
   gameContainer: {

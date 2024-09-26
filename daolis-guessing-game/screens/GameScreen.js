@@ -4,6 +4,7 @@ import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Imag
 import { Colors } from '../helpers/Colors';
 import GradientBackground from '../components/GradiantBackground';
 import Button from '../components/Button';
+import ModalContent from '../components/ModalContent';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -13,9 +14,18 @@ const GameScreen = ({onBackToStart, phone}) => {
   const maxGuessRange = 100;
   const loseImage = require('../assets/loseImage.png');
   const endImage = require('../assets/endGameManually.webp');
+  const lastPhoneDigit = phone.slice(-1); // the last digit of input phone number
 
   const [generateNum, setGenerateNum] = useState(null);
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
+
+  const gameText = `
+  You have ${gameTime} seconds and ${gameAttempts} 
+  attemps to guess a number that
+  is multiply of the last digit of your
+  phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRange} and 
+  ${maxGuessRange}.
+  `
 
   const [timer, setTimer] = useState(gameTime);
   const [attempts, setAttempts] = useState(gameAttempts);
@@ -57,8 +67,6 @@ const GameScreen = ({onBackToStart, phone}) => {
     setSubmitModalVisible(true);
     setUserInput('');
   };
-
-  const lastPhoneDigit = phone.slice(-1); // the last digit of input phone number
 
   const getRandomNaturalNumber = () => {
       const min = minGuessRange;
@@ -234,15 +242,19 @@ const GameScreen = ({onBackToStart, phone}) => {
                 visible={endModalVisible}
               />
           </View>
+
           <View style={styles.modalContainer}>
-            <View style={styles.modalView}>
-            <Text style={styles.modalText}>
-                You have {gameTime} seconds and {gameAttempts} {'\n'}
-                attemps to guess a number {'\n'}
-                that is multiply of the {'\n'}
-                last digit of your phone {'\n'}
-                number {phone} & {lastPhoneDigit} & {generateNum} between {minGuessRange} and {maxGuessRange}.
-              </Text>
+            <ModalContent
+              textChildren={gameText}
+
+              gameTime={gameTime}
+              gameAttempts={gameAttempts}
+              minGuessRange={minGuessRange}
+              maxGuessRange={maxGuessRange}
+              phone={phone}
+              lastPhoneDigit={lastPhoneDigit}
+              generateNum={generateNum}
+            >
 
             <View style={styles.gameContainer}>
               <Text style={styles.timerText}>Time left: {timer} seconds</Text>
@@ -277,8 +289,9 @@ const GameScreen = ({onBackToStart, phone}) => {
                   />
                 </View>
               </View>
-            </View>  
-          </View>
+            </ModalContent>
+          </View>  
+
         </Modal>
               
 

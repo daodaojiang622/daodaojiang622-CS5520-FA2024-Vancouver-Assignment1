@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Modal, StyleSheet } from 'react-native';
-import { Colors } from '../helpers/colors';
+import { Colors } from '../helpers/Colors';
 
 const ModalContainer = ({ visible, onRequestClose, children }) => {
   return (

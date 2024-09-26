@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
-import { Colors } from '../helpers/colors'; 
+import { Colors } from '../helpers/Colors'; 
 
 const InputField = ({ label, value, onChangeText, placeholder, error }) => {
   return (

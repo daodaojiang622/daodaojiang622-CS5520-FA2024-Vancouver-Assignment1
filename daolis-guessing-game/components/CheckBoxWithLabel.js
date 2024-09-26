@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Checkbox from 'expo-checkbox';
-import { Colors } from '../helpers/colors'; 
+import { Colors } from '../helpers/Colors'; 
 
 const CheckboxWithLabel = ({ value, onValueChange, label }) => {
   return (

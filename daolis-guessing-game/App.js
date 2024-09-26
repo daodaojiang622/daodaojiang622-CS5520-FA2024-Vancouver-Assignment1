@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import StartScreen from './screens/StartScreen';
 import GameScreen from './screens/GameScreen';
 import ConfirmScreen from './screens/ConfirmScreen';
-import modalShadow from './helpers/colors';
+import modalShadow from './helpers/Colors';
 
 export default function App() {
   const [name, setName] = useState('');

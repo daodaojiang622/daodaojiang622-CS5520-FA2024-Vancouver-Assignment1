@@ -1,7 +1,7 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
-import { Colors } from '../helpers/colors';
+import { Colors } from '../helpers/Colors';
 import { GameLogic, handleGuess } from '../components/GameLogic';
 
 const GameScreen = ({onBackToStart, phone}) => {

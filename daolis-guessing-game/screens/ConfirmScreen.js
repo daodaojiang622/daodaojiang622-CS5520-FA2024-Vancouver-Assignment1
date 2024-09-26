@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Colors } from '../helpers/colors';
+import { Colors } from '../helpers/Colors';
 import ModalContainer from '../components/ModalContainer';
 import ModalContent from '../components/ModalContent';
 import Button from '../components/Button';

@@ -260,14 +260,14 @@ const GameScreen = ({onBackToStart, phone}) => {
               {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
 
                 <View style={styles.buttonContainer}>
-                  
-                  <TouchableOpacity
-                    style={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
-                    onPress={handleUseHint}
+
+                <Button 
+                    onPress={handleUseHint} 
+                    title="Use a Hint" 
+                    buttonStyle={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
+                    textStyle={styles.hintButtonText} 
                     disabled={hintUsed}
-                  >
-                    <Text style={styles.hintButtonText}>Use a Hint</Text>
-                  </TouchableOpacity>
+                  />
 
                   <Button 
                     onPress={handleSGuess} 
@@ -442,6 +442,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.hint,
     padding: 10,
     borderRadius: 5,
+    width: 90,
   },
   hintButtonDisabled: {
     backgroundColor: Colors.disabled,
@@ -453,7 +454,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
-    width: 120,
+    width: 110,
   },
   submitButtonText: {
     color: Colors.buttonText,

@@ -345,13 +345,14 @@ const GameScreen = ({onBackToStart, phone}) => {
             <View style={styles.modalView}>
               <Text style={styles.modalText}>{endModalText}</Text>
               <Image source={endModalImage} style={styles.endModalImage} />
+              
               <View style={styles.gameModalButtonContainer}>
-                  <TouchableOpacity
-                    style={styles.modalStartButton}
+              <Button 
+                    title="New Game" 
+                    buttonStyle={styles.modalStartButton}
+                    textStyle={styles.modalStartButtonText} 
                     onPress={handleNewGame}
-                  >
-                    <Text style={styles.modalStartButtonText}>New Game</Text>
-                  </TouchableOpacity>
+                  />
                 </View>
             </View>
           </View>

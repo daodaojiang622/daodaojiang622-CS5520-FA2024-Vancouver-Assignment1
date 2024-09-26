@@ -12,7 +12,8 @@ const Card = ({ children }) => {
 
 const styles = StyleSheet.create({
   card: {
-    width: '80%',
+    width: '90%',
+    height: '50%',
     padding: 20,
     borderRadius: 10,
     backgroundColor: Colors.modalBackground,

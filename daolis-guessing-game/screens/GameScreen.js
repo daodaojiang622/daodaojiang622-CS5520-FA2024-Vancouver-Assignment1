@@ -4,6 +4,7 @@ import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image } fro
 import { Colors } from '../helpers/Colors';
 import GradientBackground from '../components/GradiantBackground';
 import Button from '../components/Button';
+import Card from '../components/Card';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -169,7 +170,7 @@ const GameScreen = ({onBackToStart, phone}) => {
       {/* Start Card */}
       {startCardVisible && (
         <View style={styles.cardContainer}>
-          <View style={styles.cardView}>
+          <Card>
             <Text style={styles.cardText}>
               You have {gameTime} seconds and {gameAttempts} {'\n'}
               attempts to guess a number {'\n'}
@@ -182,7 +183,7 @@ const GameScreen = ({onBackToStart, phone}) => {
                 <Text style={styles.cardStartButtonText}>Start</Text>
               </TouchableOpacity>
             </View>
-          </View>
+          </Card>
         </View>
       )}
 

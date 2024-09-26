@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
-import { GameLogic, handleGuess } from '../components/GameLogic';
+import GradientBackground from '../components/GradiantBackground';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -179,11 +179,7 @@ const GameScreen = ({onBackToStart, phone}) => {
   };
 
   return (
-    <View style={styles.container}>
-      <LinearGradient
-        colors={Colors.linearGradient}
-        style={styles.LinearGradient}
-      >
+    <GradientBackground>
 
         {/* Start Modal */}
         <Modal
@@ -358,9 +354,8 @@ const GameScreen = ({onBackToStart, phone}) => {
             </View>
           </View>
         </Modal>
-          
-      </LinearGradient>
-    </View>
+        
+    </GradientBackground>
   );
 };
 

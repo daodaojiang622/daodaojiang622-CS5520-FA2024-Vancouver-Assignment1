@@ -5,7 +5,7 @@ import { Colors } from '../helpers/Colors';
 const ModalContent = ({ textChildren, children }) => {
   return (
     <View style={styles.modalView}>
-      <Text style={styles.modalText}>
+      <Text style={[styles.modalText]}>
         {textChildren}
       </Text>
       {children}
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 18,
-    textAlign: 'center',
+    textAlign: 'left',
   },
 });
 

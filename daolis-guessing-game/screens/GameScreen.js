@@ -2,7 +2,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
-import ModalContent from '../components/ModalContent';
+import { GameLogic, handleGuess } from '../components/GameLogic';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -12,7 +12,6 @@ const GameScreen = ({onBackToStart, phone}) => {
   const maxGuessRange = 100;
   const loseImage = require('../assets/loseImage.png');
   const endImage = require('../assets/endGameManually.webp');
-  const lastPhoneDigit = phone.slice(-1); // the last digit of input phone number
 
   const [generateNum, setGenerateNum] = useState(null);
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
@@ -31,14 +30,6 @@ const GameScreen = ({onBackToStart, phone}) => {
   const [gameModalVisible, setGameModalVisible] = useState(false);
   const [endModalVisible, setEndModalVisible] = useState(false);
   const [submitModalVisible, setSubmitModalVisible] = useState(false);
-
-  const startScreenText = `
-You have ${gameTime} seconds and ${gameAttempts} 
-attemps to guess a number that is
-multiply of the last digit of your 
-phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRange} and ${maxGuessRange}.
-  `
-
 
   console.log('start modal', startModalVisible);
 
@@ -66,7 +57,7 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
     setUserInput('');
   };
 
-
+  const lastPhoneDigit = phone.slice(-1); // the last digit of input phone number
 
   const getRandomNaturalNumber = () => {
       const min = minGuessRange;
@@ -157,11 +148,7 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
 
   // Handle new game
   const handleNewGame = () => {
-    setStartModalVisible(true);
-    setGameModalVisible(false);
-    setEndModalVisible(false);
-    setSubmitModalVisible(false);
-    //openSubmitModal();
+    openSubmitModal();
     setTimer(gameTime);
     setAttempts(gameAttempts);
     setHintUsed(false);
@@ -202,7 +189,7 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
         <Modal
           animationType="none"
           transparent={true}
-          visible={startModalVisible}
+          visible={true}
         >
           <View style={styles.restartButtonStartModalContainer}>
             <TouchableOpacity
@@ -214,16 +201,15 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
             </TouchableOpacity>
           </View>
           <View style={styles.modalContainer}>
-            <ModalContent 
-              textChildren={startScreenText}
-              gameTime={gameTime}
-              gameAttempts={gameAttempts}
-              maxGuessRange={maxGuessRange}
-              minGuessRange={minGuessRange}
-              phone={phone}
-              lastPhoneDigit={lastPhoneDigit}
-              generateNum={generateNum}
-              > 
+            <View style={styles.modalView}>
+              <Text style={styles.modalText}>
+                You have {gameTime} seconds and {gameAttempts} {'\n'}
+                attemps to guess a number {'\n'}
+                that is multiply of the {'\n'}
+                last digit of your phone {'\n'}
+                number {phone} & {lastPhoneDigit} & {generateNum} between {minGuessRange} and {maxGuessRange}.
+              </Text>
+
               <View style={styles.modalButtonContainer}>
                 <TouchableOpacity
                   style={styles.modalStartButton}
@@ -232,8 +218,8 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
                   <Text style={styles.modalStartButtonText}>Start</Text>
                 </TouchableOpacity>
               </View>
-              </ModalContent>
             </View>
+          </View>
         </Modal>
 
         {/* Submit Modal */}
@@ -252,16 +238,15 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
             </TouchableOpacity>
           </View>
           <View style={styles.modalContainer}>
-            <ModalContent 
-                textChildren={startScreenText}
-                gameTime={gameTime}
-                gameAttempts={gameAttempts}
-                maxGuessRange={maxGuessRange}
-                minGuessRange={minGuessRange}
-                phone={phone}
-                lastPhoneDigit={lastPhoneDigit}
-                generateNum={generateNum}
-                > 
+            <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+                You have {gameTime} seconds and {gameAttempts} {'\n'}
+                attemps to guess a number {'\n'}
+                that is multiply of the {'\n'}
+                last digit of your phone {'\n'}
+                number {phone} & {lastPhoneDigit} & {generateNum} between {minGuessRange} and {maxGuessRange}.
+              </Text>
+
             <View style={styles.gameContainer}>
               <Text style={styles.timerText}>Time left: {timer} seconds</Text>
               <Text style={styles.attemptsText}>Attempts left: {attempts}</Text>
@@ -294,7 +279,7 @@ phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRan
                   </TouchableOpacity>
                 </View>
               </View>
-          </ModalContent>
+            </View>  
           </View>
         </Modal>
               
@@ -523,7 +508,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     zIndex: 1,
-  }
+  },
 });
 
 export default GameScreen;

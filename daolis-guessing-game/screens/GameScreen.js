@@ -18,6 +18,13 @@ const GameScreen = ({onBackToStart, phone}) => {
   const [generateNum, setGenerateNum] = useState(null);
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
 
+  const gameIntro =  `
+You have ${gameTime} seconds and ${gameAttempts}
+attempts to guess a number 
+that is a multiple of the last 
+digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRange} and ${maxGuessRange}.
+  `
+
   const [timer, setTimer] = useState(gameTime);
   const [attempts, setAttempts] = useState(gameAttempts);
   const [hintUsed, setHintUsed] = useState(false);
@@ -223,16 +230,16 @@ const GameScreen = ({onBackToStart, phone}) => {
 
             <View style={styles.buttonContainer}>
               <Button
-                onPress={handleUseHint}
                 title="Use a Hint"
+                onPress={handleUseHint}
                 buttonStyle={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
                 textStyle={styles.hintButtonText}
                 disabled={hintUsed}
               />
 
               <Button
-                onPress={handleSGuess}
                 title="Submit Guess"
+                onPress={handleSGuess}
                 buttonStyle={styles.submitButton}
                 textStyle={styles.submitButtonText}
               />

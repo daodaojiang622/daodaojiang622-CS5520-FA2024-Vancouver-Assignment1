@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   modalText: {
     fontSize: 18,
-    textAlign: 'flex-start',
+    textAlign: 'center',
   },
 });
 

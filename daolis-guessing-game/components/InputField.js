@@ -2,15 +2,16 @@ import React from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
 import { Colors } from '../helpers/Colors'; 
 
-const InputField = ({ label, value, onChangeText, placeholder, error }) => {
+const InputField = ({ label, value, onChangeText, placeholder, error, autoFocus, textStyle, titleStyle }) => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{label}</Text>
+      <Text style={[styles.title, titleStyle]}>{label}</Text>
       <TextInput
-        style={styles.input}
+        style={[styles.input, textStyle]}
         value={value}
         onChangeText={onChangeText}
         placeholder={placeholder}
+        autoFocus={autoFocus}
       />
       {error ? <Text style={styles.errorText}>{error}</Text> : null}
     </View>

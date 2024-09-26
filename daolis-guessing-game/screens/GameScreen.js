@@ -1,10 +1,9 @@
 import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, Modal, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
 import GradientBackground from '../components/GradiantBackground';
 import Button from '../components/Button';
-import ModalContent from '../components/ModalContent';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -14,18 +13,9 @@ const GameScreen = ({onBackToStart, phone}) => {
   const maxGuessRange = 100;
   const loseImage = require('../assets/loseImage.png');
   const endImage = require('../assets/endGameManually.webp');
-  const lastPhoneDigit = phone.slice(-1); // the last digit of input phone number
 
   const [generateNum, setGenerateNum] = useState(null);
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
-
-  const gameText = `
-  You have ${gameTime} seconds and ${gameAttempts} 
-  attemps to guess a number that
-  is multiply of the last digit of your
-  phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRange} and 
-  ${maxGuessRange}.
-  `
 
   const [timer, setTimer] = useState(gameTime);
   const [attempts, setAttempts] = useState(gameAttempts);
@@ -33,139 +23,126 @@ const GameScreen = ({onBackToStart, phone}) => {
   const [hint, setHint] = useState('');
   const [userInput, setUserInput] = useState('');
 
-  const [gameModalText, setGameModalText] = useState('');
-  const [endModalText, setEndModalText] = useState('');
-  const [endModalImage, setEndModalImage] = useState('');
+  const [gameCardText, setGameCardText] = useState('');
+  const [endCardText, setEndCardText] = useState('');
+  const [endCardImage, setEndCardImage] = useState('');
 
-  const [startModalVisible, setStartModalVisible] = useState(true);
-  const [gameModalVisible, setGameModalVisible] = useState(false);
-  const [endModalVisible, setEndModalVisible] = useState(false);
-  const [submitModalVisible, setSubmitModalVisible] = useState(false);
+  const [startCardVisible, setStartCardVisible] = useState(true);
+  const [gameCardVisible, setGameCardVisible] = useState(false);
+  const [endCardVisible, setEndCardVisible] = useState(false);
+  const [submitCardVisible, setSubmitCardVisible] = useState(false);
 
-  console.log('start modal', startModalVisible);
-
-  const openGameModal = () => {
-    console.log('game modal', gameModalVisible);
-    setStartModalVisible(false);
-    setGameModalVisible(true);
-    setEndModalVisible(false);
-    setSubmitModalVisible(false);
+  const openGameCard = () => {
+    setStartCardVisible(false);
+    setGameCardVisible(true);
+    setEndCardVisible(false);
+    setSubmitCardVisible(false);
   };
 
-  const openEndModal = () => {
-    setStartModalVisible(false);
-    setGameModalVisible(false);
-    setEndModalVisible(true);
-    setSubmitModalVisible(false);
+  const openEndCard = () => {
+    setStartCardVisible(false);
+    setGameCardVisible(false);
+    setEndCardVisible(true);
+    setSubmitCardVisible(false);
   };
 
-  const openSubmitModal = () => {
-    console.log('submit modal', submitModalVisible);
-    setStartModalVisible(false);
-    setGameModalVisible(false);
-    setEndModalVisible(false);
-    setSubmitModalVisible(true);
+  const openSubmitCard = () => {
+    setStartCardVisible(false);
+    setGameCardVisible(false);
+    setEndCardVisible(false);
+    setSubmitCardVisible(true);
     setUserInput('');
   };
 
-  const getRandomNaturalNumber = () => {
-      const min = minGuessRange;
-      const max = maxGuessRange;
+  const lastPhoneDigit = phone.slice(-1); // last digit of phone number
 
-      let generateNum;
-      do {
-          generateNum = lastPhoneDigit * (Math.floor(Math.random() * (max - min + 1)) + min);
-      } while (generateNum > maxGuessRange || generateNum < minGuessRange);
-      return generateNum;
+  const getRandomNaturalNumber = () => {
+    const min = minGuessRange;
+    const max = maxGuessRange;
+    let generateNum;
+    do {
+      generateNum = lastPhoneDigit * (Math.floor(Math.random() * (max - min + 1)) + min);
+    } while (generateNum > maxGuessRange || generateNum < minGuessRange);
+    return generateNum;
   };
 
-  // Generate a random number when the game starts
   useEffect(() => {
     setGenerateNum(getRandomNaturalNumber());
   }, []);
 
-  // Countdown timer
   useEffect(() => {
-    if ( timer > 0) {
+    if (timer > 0) {
       const interval = setInterval(() => {
         setTimer((prevTimer) => prevTimer - 1);
       }, 1000);
 
       return () => clearInterval(interval);
     } else if (timer === 0) {
-      openEndModal();
-      setEndModalText('The game is over! \n You are out of time.');
-      setEndModalImage(loseImage);
+      openEndCard();
+      setEndCardText('The game is over! \n You are out of time.');
+      setEndCardImage(loseImage);
     }
   }, [timer]);
 
-  // Hint function
   const handleUseHint = () => {
-    
     if (!hintUsed) {
-      // give the last digit of the answer
       setHint('Hint: The last digit is ' + generateNum % 10);
       setHintUsed(true);
     }
   };
 
-  // Handle guess submission
   const handleSGuess = () => {
     const guess = parseInt(userInput);
 
     if (attempts > 1 && timer > 0) {
-      // Check if the input is a number between 1 and 100
       if (isNaN(guess) || guess < minGuessRange || guess > maxGuessRange) {
         Alert.alert('Invalid Input', `Please enter a number between ${minGuessRange} and ${maxGuessRange}.`);
         return false;
       } else if (guess === generateNum) {
         setAttempts(attempts - 1);
-        openEndModal();
-        setEndModalText('You guesses correctly! \n Attempts used: ' + (gameAttempts - attempts + 1));
-        setEndModalImage({ uri: winImage });
+        openEndCard();
+        setEndCardText('You guessed correctly! \n Attempts used: ' + (gameAttempts - attempts + 1));
+        setEndCardImage({ uri: winImage });
         return true;
       } else if (guess < generateNum) {
         setAttempts(attempts - 1);
-        openGameModal();
-        setGameModalText('You did not guess correctly! \n Try a higher number.');
+        openGameCard();
+        setGameCardText('You did not guess correctly! \n Try a higher number.');
         return true;
       } else {
         setAttempts(attempts - 1);
-        openGameModal();
-        setGameModalText('You did not guess correctly! \n Try a lower number.');
+        openGameCard();
+        setGameCardText('You did not guess correctly! \n Try a lower number.');
         return true;
       }
     } else if (attempts === 1) {
       if (guess === generateNum) {
-        openEndModal();
-        setEndModalText('You guesses correctly! \n Attempts used: ' + ({gameAttempts} - attempts + 1));
-        setEndModalImage({ uri: winImage });
+        openEndCard();
+        setEndCardText('You guessed correctly! \n Attempts used: ' + (gameAttempts - attempts + 1));
+        setEndCardImage({ uri: winImage });
         return true;
       } else {
-        openEndModal();
-        setEndModalText('The game is over! \n You are out of attempts.');
-        setEndModalImage(loseImage);
-        return false; 
+        openEndCard();
+        setEndCardText('The game is over! \n You are out of attempts.');
+        setEndCardImage(loseImage);
+        return false;
       }
     }
-  }
+  };
 
-  // Handle try again
   const handleTryAgain = () => {
-    openSubmitModal();
-  }
+    openSubmitCard();
+  };
 
-  // Handle new game
   const handleNewGame = () => {
-    openSubmitModal();
+    openSubmitCard();
     setTimer(gameTime);
     setAttempts(gameAttempts);
     setHintUsed(false);
     setHint('');
     setGenerateNum(getRandomNaturalNumber());
-  }
-  
-  // handle restart, if user confirmes, navigate to start screen
+  };
+
   const handleRestart = () => {
     Alert.alert(
       'Confirm Restart',
@@ -189,283 +166,146 @@ const GameScreen = ({onBackToStart, phone}) => {
 
   return (
     <GradientBackground>
+      {/* Start Card */}
+      {startCardVisible && (
+        <View style={styles.cardContainer}>
+          <View style={styles.cardView}>
+            <Text style={styles.cardText}>
+              You have {gameTime} seconds and {gameAttempts} {'\n'}
+              attempts to guess a number {'\n'}
+              that is a multiple of the last {'\n'}
+              digit of your phone number {phone}.
+            </Text>
 
-        {/* Start Modal */}
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={true}
-        >
-          <View style={styles.restartButtonStartModalContainer}>
-            <Button 
-                title="Restart" 
-                buttonStyle={styles.restartButton}
-                textStyle={styles.restartButtonText} 
-                onPress={handleRestart}
-                visible={endModalVisible}
-              />
-          </View>
-          <View style={styles.modalContainer}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                You have {gameTime} seconds and {gameAttempts} {'\n'}
-                attemps to guess a number {'\n'}
-                that is multiply of the {'\n'}
-                last digit of your phone {'\n'}
-                number {phone} & {lastPhoneDigit} & {generateNum} between {minGuessRange} and {maxGuessRange}.
-              </Text>
-
-              <View style={styles.modalButtonContainer}>
-                <Button 
-                  title="Start" 
-                  buttonStyle={styles.modalStartButton}
-                  textStyle={styles.modalStartButtonText} 
-                  onPress={openSubmitModal}
-                />
-              </View>
+            <View style={styles.cardButtonContainer}>
+              <TouchableOpacity style={styles.cardStartButton} onPress={openSubmitCard}>
+                <Text style={styles.cardStartButtonText}>Start</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </Modal>
+        </View>
+      )}
 
-        {/* Submit Modal */}
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={submitModalVisible}
-        >
-         <View style={styles.restartButtonSubmitModalContainer}>
-          <Button 
-                title="Restart" 
-                buttonStyle={styles.restartButton}
-                textStyle={styles.restartButtonText} 
-                onPress={handleRestart}
-                visible={endModalVisible}
-              />
-          </View>
+      {/* Submit Card */}
+      {submitCardVisible && (
+        <View style={styles.cardContainer}>
+          <View style={styles.cardView}>
+            <Text style={styles.cardText}>
+              Time left: {timer} seconds
+              Attempts left: {attempts}
+            </Text>
 
-          <View style={styles.modalContainer}>
-            <ModalContent
-              textChildren={gameText}
-
-              gameTime={gameTime}
-              gameAttempts={gameAttempts}
-              minGuessRange={minGuessRange}
-              maxGuessRange={maxGuessRange}
-              phone={phone}
-              lastPhoneDigit={lastPhoneDigit}
-              generateNum={generateNum}
-            >
-
-            <View style={styles.gameContainer}>
-              <Text style={styles.timerText}>Time left: {timer} seconds</Text>
-              <Text style={styles.attemptsText}>Attempts left: {attempts}</Text>
-
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your guess"
-                keyboardType="numeric"
-                value={userInput}
-                onChangeText={setUserInput}
-                autoFocus = {true}
-              />
-
-              {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
-
-                <View style={styles.buttonContainer}>
-
-                <Button 
-                    onPress={handleUseHint} 
-                    title="Use a Hint" 
-                    buttonStyle={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
-                    textStyle={styles.hintButtonText} 
-                    disabled={hintUsed}
-                  />
-
-                  <Button 
-                    onPress={handleSGuess} 
-                    title="Submit Guess" 
-                    buttonStyle={styles.submitButton}
-                    textStyle={styles.submitButtonText} 
-                  />
-                </View>
-              </View>
-            </ModalContent>
-          </View>  
-
-        </Modal>
-              
-
-        {/* Game Modal */}
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={gameModalVisible}
-        >
-          <View style={styles.restartButtonGameModalContainer}>
-          <Button 
-              title="Restart" 
-              buttonStyle={styles.restartButton}
-              textStyle={styles.restartButtonText} 
-              onPress={handleRestart}
-              visible={endModalVisible}
+            <TextInput
+              style={styles.input}
+              placeholder="Enter your guess"
+              keyboardType="numeric"
+              value={userInput}
+              onChangeText={setUserInput}
+              autoFocus={true}
             />
-          </View>
 
-          <View style={styles.modalContainer}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>
-                {gameModalText}
-              </Text>
+            {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
 
-              <View style={styles.gameModalButtonContainer}>
-                <Button 
-                    title="Try Again" 
-                    onPress={handleTryAgain} 
-                    buttonStyle={styles.modalTryAgainButton}
-                    textStyle={styles.modalTryAgainButtonText} 
-                  />
-                <Button 
-                    title="End The Game" 
-                    buttonStyle={styles.modalEndGameButton}
-                    textStyle={styles.modalEndGameButtonText} 
-                    onPress={() => {
-                      openEndModal();
-                      setEndModalText('The game is over! \n Click below to restart.');
-                      setEndModalImage(endImage);
-                    }
-                  }
-                  />
-                </View>
+            <View style={styles.buttonContainer}>
+              <Button
+                onPress={handleUseHint}
+                title="Use a Hint"
+                buttonStyle={[styles.hintButton, hintUsed && styles.hintButtonDisabled]}
+                textStyle={styles.hintButtonText}
+                disabled={hintUsed}
+              />
+
+              <Button
+                onPress={handleSGuess}
+                title="Submit Guess"
+                buttonStyle={styles.submitButton}
+                textStyle={styles.submitButtonText}
+              />
             </View>
           </View>
-        </Modal>
+        </View>
+      )}
 
-        {/* End Modal */}
-        <Modal
-          animationType="none"
-          transparent={true}
-          visible={endModalVisible}
-        >
-          <View style={styles.restartButtonEndModalContainer}>
-            <Button 
-              title="Restart" 
-              buttonStyle={styles.restartButton}
-              textStyle={styles.restartButtonText} 
-              onPress={handleRestart}
-              visible={endModalVisible}
-            />
-          </View>
+      {/* Game Card */}
+      {gameCardVisible && (
+        <View style={styles.cardContainer}>
+          <View style={styles.cardView}>
+            <Text style={styles.cardText}>{gameCardText}</Text>
 
-          <View style={styles.modalContainer}>
-            <View style={styles.modalView}>
-              <Text style={styles.modalText}>{endModalText}</Text>
-              <Image source={endModalImage} style={styles.endModalImage} />
-              
-              <View style={styles.gameModalButtonContainer}>
-              <Button 
-                    title="New Game" 
-                    buttonStyle={styles.modalStartButton}
-                    textStyle={styles.modalStartButtonText} 
-                    onPress={handleNewGame}
-                  />
-                </View>
+            <View style={styles.cardButtonContainer}>
+              <Button onPress={handleTryAgain} title="Try Again" buttonStyle={styles.cardStartButton} />
+              <TouchableOpacity style={styles.cardStartButton} onPress={handleNewGame}>
+                <Text style={styles.cardStartButtonText}>End The Game</Text>
+              </TouchableOpacity>
             </View>
           </View>
-        </Modal>
-        
+        </View>
+      )}
+
+      {/* End Card */}
+      {endCardVisible && (
+        <View style={styles.cardContainer}>
+          <View style={styles.cardView}>
+            <Text style={styles.cardText}>{endCardText}</Text>
+            <Image source={endCardImage} style={styles.endCardImage} />
+            <View style={styles.cardButtonContainer}>
+              <TouchableOpacity style={styles.cardStartButton} onPress={handleNewGame}>
+                <Text style={styles.cardStartButtonText}>New Game</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      )}
     </GradientBackground>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: Colors.noColor,
-  },
-  LinearGradient: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
+  cardContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  modalView: {
-    width: '80%',
+  cardView: {
+    backgroundColor: 'white',
     padding: 20,
     borderRadius: 10,
-    backgroundColor: Colors.modalBackground,
+    width: '80%',
     alignItems: 'center',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.23,
+    shadowRadius: 2.62,
+    elevation: 4,
   },
-  modalText: {
-    fontSize: 18,
-    marginBottom: 20,
+  cardText: {
+    fontSize: 16,
     textAlign: 'center',
+    marginBottom: 20,
   },
-  modalStartButton: {
-    backgroundColor: Colors.buttonBackground,
+  cardStartButton: {
+    backgroundColor: Colors.blue,
     padding: 10,
     borderRadius: 5,
-  },
-  modalStartButtonText: {
-    color: Colors.buttonText,
-  },
-  modalTryAgainButton: {
-    backgroundColor: Colors.buttonBackground,
-    padding: 10,
-    borderRadius: 5,
-    width: 90,
-  },
-  modalTryAgainButtonText: {
-    color: Colors.buttonText,
-  },
-  modalEndGameButton: {
-    backgroundColor: Colors.danger,
-    padding: 10,
-    borderRadius: 5,
-    width: 120,
-  },
-  modalEndGameButtonText: {
-    color: Colors.buttonText,
-  },
-  gameContainer: {
+    width: '100%',
     alignItems: 'center',
-    padding: 20,
+    marginVertical: 10,
   },
-  timerText: {
-    fontSize: 15,
-    marginBottom: 20,
-    color: Colors.danger,
-  },
-  attemptsText: {
-    fontSize: 15,
-    marginBottom: 20,
-    color: Colors.danger,
+  cardStartButtonText: {
+    color: 'blue',
+    fontSize: 16,
   },
   input: {
+    height: 40,
+    borderColor: 'gray',
     borderWidth: 1,
-    borderColor: Colors.noColor,
-    padding: 10,
-    width: '80%',
     marginBottom: 20,
+    width: '100%',
     textAlign: 'center',
-    fontSize: 20,
-    borderBottomColor: Colors.borderColor,
-    borderBottomWidth: 2,
-  },
-  hintText: {
-    fontSize: 15,
-    marginBottom: 20,
-    color: Colors.hint,
+    borderRadius: 5,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -473,74 +313,31 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   hintButton: {
-    backgroundColor: Colors.hint,
+    backgroundColor: Colors.green,
     padding: 10,
     borderRadius: 5,
-    width: 90,
-  },
-  hintButtonDisabled: {
-    backgroundColor: Colors.disabled,
+    width: '48%',
+    alignItems: 'center',
   },
   hintButtonText: {
-    color: Colors.buttonText,
+    color: 'blue',
+    fontSize: 16,
   },
   submitButton: {
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.red,
     padding: 10,
     borderRadius: 5,
-    width: 110,
+    width: '48%',
+    alignItems: 'center',
   },
   submitButtonText: {
-    color: Colors.buttonText,
+    color: 'white',
+    fontSize: 16,
   },
-  gameModalButtonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    width: '100%',
-  },
-  restartButtonGameModalContainer: {
-    position: 'absolute',
-    top: 300,
-    left: 285,
-    backgroundColor: Colors.buttonBackground,
-    padding: 10,
-    borderRadius: 5,
-    zIndex: 1,
-  },
-  restartButtonText: {  
-    color: Colors.buttonText,
-  },
-  restartButtonSubmitModalContainer: {
-    position: 'absolute',
-    top: 160,
-    left: 285,
-    backgroundColor: Colors.buttonBackground,
-    padding: 10,
-    borderRadius: 5,
-    zIndex: 1,
-  },
-  restartButtonStartModalContainer: {
-    position: 'absolute',
-    top: 250,
-    left: 285,
-    backgroundColor: Colors.buttonBackground,
-    padding: 10,
-    borderRadius: 5,
-    zIndex: 1,
-  },
-  endModalImage: {
+  endCardImage: {
     width: 100,
     height: 100,
-    marginBottom: 20,
-  },
-  restartButtonEndModalContainer: {
-    position: 'absolute',
-    top: 230,
-    left: 285,
-    backgroundColor: Colors.buttonBackground,
-    padding: 10,
-    borderRadius: 5,
-    zIndex: 1,
+    marginVertical: 20,
   },
 });
 

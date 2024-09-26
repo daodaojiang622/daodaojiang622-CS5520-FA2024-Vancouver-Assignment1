@@ -16,7 +16,7 @@ const Button = ({ onPress, title, disabled, buttonStyle, textStyle, visible }) =
 };
 
 const styles = StyleSheet.create({
-  buttonContainer: {
+  button: {
     backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,

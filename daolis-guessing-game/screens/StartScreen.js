@@ -1,21 +1,24 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import GradientBackground from '/Users/chenyujiang/Desktop/5520/daodaojiang622-CS5520-FA2024-Vancouver-Assignment1/daolis-guessing-game/components/GradiantBackground.js';
 import { Colors } from '../helpers/Colors'; 
-import InputField from '../components/InputField.js';
-import CheckboxWithLabel from '../components/CheckBoxWithLabel.js';
-import Button from '../components/Button.js';
-import Header from '../components/Header.js';
+import InputField from '../components/InputField';
+import CheckboxWithLabel from '/Users/chenyujiang/Desktop/5520/daodaojiang622-CS5520-FA2024-Vancouver-Assignment1/daolis-guessing-game/components/CheckBoxWithLabel.js';
+import Button from '../components/Button';
+import Header from '../components/Header';
+import Card from '../components/Card';
 
 const StartScreen = ({ onConfirm }) => {
   const [name, setName] = useState('test');
-  const [email, setEmail] = useState('test@tegst.test');
-  const [phone, setPhone] = useState('9876543219');
+  const [email, setEmail] = useState('test@tt.tt');
+  const [phone, setPhone] = useState('9876543212');
   const [isChecked, setIsChecked] = useState(true);
   
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');
   const [phoneError, setPhoneError] = useState('');
+
+  const headerText = 'Welcome to Daoli\'s Guessing Game!';
 
   const handleReset = () => {
     setName('');
@@ -67,8 +70,8 @@ const StartScreen = ({ onConfirm }) => {
   return (
     <GradientBackground>
       <View style={styles.container}>
-        <Header title="Welcome to Daoli's Guessing Game!" />
-        <View style={styles.card}>
+        <Header title={headerText} />
+        <Card>
           <InputField 
             label="Name" 
             value={name} 
@@ -110,8 +113,7 @@ const StartScreen = ({ onConfirm }) => {
               textStyle={styles.registerButtonText}
             />
           </View>
-          
-        </View>
+        </Card>
       </View>
     </GradientBackground>
   );
@@ -122,17 +124,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: Colors.noColor,
-  },
-  card: {
-    width: '80%',
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: Colors.modalBackground,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 5,
-    elevation: 5,
-    alignItems: '',
   },
   buttonContainer: {
     marginTop: 20,

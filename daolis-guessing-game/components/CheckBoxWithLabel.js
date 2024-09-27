@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginVertical: 10,
-    marginTop: 30,
+    marginTop: 10,
   },
   checkboxLabel: {
     marginLeft: 10,

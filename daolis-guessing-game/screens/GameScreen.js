@@ -356,6 +356,7 @@ const styles = StyleSheet.create({
     width: '50%',
     alignSelf: 'center',
     borderBottomColor: Colors.primary,
+    textAlign: 'center',
   },
   buttonContainer: {
     flexDirection: 'row',

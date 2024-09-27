@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 2,
     alignContent: 'center',
     width: 270,
+    fontSize: 16,
   },
   errorText: {
     color: Colors.danger,

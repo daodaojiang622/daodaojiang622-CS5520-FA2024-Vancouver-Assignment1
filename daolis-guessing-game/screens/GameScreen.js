@@ -8,7 +8,7 @@ import restartImage from '../assets/restartImage.png';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
-  const gameTime = 60000;
+  const gameTime = 60;
   const gameAttempts = 4;
   const minGuessRange = 1;
   const maxGuessRange = 100;
@@ -79,17 +79,20 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
   }, []);
 
   useEffect(() => {
-    if (timer > 0) {
-      const interval = setInterval(() => {
-        setTimer((prevTimer) => prevTimer - 1);
-      }, 1000);
+    const interval = setInterval(() => {
+      setTimer((prevTimer) => {
+        if (prevTimer <= 1) {
+          clearInterval(interval);
+          openEndCard();
+          setEndCardText('The game is over! \n You are out of time.');
+          setEndCardImage(loseImage);
+          return 0;
+        }
+        return prevTimer - 1;
+      });
+    }, 1000);
 
-      return () => clearInterval(interval);
-    } else if (timer === 0) {
-      openEndCard();
-      setEndCardText('The game is over! \n You are out of time.');
-      setEndCardImage(loseImage);
-    }
+    return () => clearInterval(interval); // Cleanup interval on component unmount
   }, [timer]);
 
   const handleUseHint = () => {
@@ -193,7 +196,10 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
 
             <Button
                 title="Start"
-                onPress={openSubmitCard}
+                onPress={() => {
+                  setTimer(gameTime);
+                  openSubmitCard();
+                }}
                 buttonStyle={styles.startCardStartButton}
                 textStyle={styles.startCardStartButtonText}
               />

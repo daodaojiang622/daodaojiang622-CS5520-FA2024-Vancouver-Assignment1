@@ -16,7 +16,7 @@ export const Colors = {
 
     // functional colors
     hint: 'green',
-    danger: '#9e0168',
+    danger: '#e40078',
     disabled: 'gray',
     noColor: 'transparent',
 

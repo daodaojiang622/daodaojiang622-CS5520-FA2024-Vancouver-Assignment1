@@ -447,13 +447,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     padding: 10,
     marginBottom: 10,
-    corlor: "red",
+    color: Colors.danger,
   },
   hintText: {
     fontSize: 16,
     marginBottom: 20,
-    color: Colors.green,
     alignSelf: 'center',
+    color: Colors.hint,
   },
   endCardText: {
     fontSize: 20,

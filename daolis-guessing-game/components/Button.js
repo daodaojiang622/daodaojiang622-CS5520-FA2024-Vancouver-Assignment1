@@ -1,17 +1,17 @@
 import React from 'react';
-import { TouchableOpacity, Text, StyleSheet, View } from 'react-native';
+import { TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 import { Colors } from '../helpers/Colors'; 
 
-const Button = ({ onPress, title, disabled, buttonStyle, textStyle, visible }) => {
+const Button = ({ onPress, title, disabled, buttonStyle, textStyle, source, imageStyle }) => {
   return (
-      <TouchableOpacity 
-        style={[styles.button, buttonStyle, disabled && styles.disabled]} 
-        onPress={onPress} 
-        disabled={disabled}
-        visible={visible}
-      >
-        <Text style={[styles.buttonText, textStyle, disabled && styles.disabledText]}>{title}</Text>
-      </TouchableOpacity>
+    <TouchableOpacity 
+      style={[styles.button, buttonStyle, disabled && styles.disabled]} 
+      onPress={onPress} 
+      disabled={disabled}
+    >
+      {source && <Image source={source} style={[styles.image, imageStyle]} />}
+      <Text style={[styles.buttonText, textStyle, disabled && styles.disabledText]}>{title}</Text>
+    </TouchableOpacity>
   );
 };
 
@@ -32,6 +32,11 @@ const styles = StyleSheet.create({
   },
   disabledText: {
     color: Colors.disabled,
+  },
+  image: {
+    width: 30,
+    height: 30,
+    marginRight: 10,
   },
 });
 

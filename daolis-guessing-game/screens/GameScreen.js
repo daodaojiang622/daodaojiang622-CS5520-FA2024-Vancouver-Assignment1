@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
 import GradientBackground from '../components/GradiantBackground';
 import Button from '../components/Button';
 import Card from '../components/Card';
+import restartImage from '../assets/restartImage.png';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
@@ -177,9 +178,9 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
       {startCardVisible && (
         <View style={styles.startCardContainer}>
           <Button 
-            title="Restart" 
             onPress={handleRestart} 
-            textStyle={styles.restartButtonText}
+            source={restartImage}
+            imageStyle={styles.restartButtonImage}
             buttonStyle={styles.restartButtonStartCard}
           />
 
@@ -204,9 +205,9 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
       {submitCardVisible && (
         <View style={styles.submitCardContainer}>
           <Button 
-            title="Restart" 
             onPress={handleRestart} 
-            textStyle={styles.restartButtonText}
+            source={restartImage}
+            imageStyle={styles.restartButtonImage}
             buttonStyle={styles.restartButtonSubmitCard}
           />
 
@@ -255,9 +256,9 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
       {gameCardVisible && (
         <View style={styles.gameCardContainer}>
           <Button 
-            title="Restart" 
             onPress={handleRestart} 
-            textStyle={styles.gameCardRestartButtonText}
+            source={restartImage}
+            imageStyle={styles.restartButtonImage}
             buttonStyle={styles.restartButtonGameCard}
           />
 
@@ -293,9 +294,9 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
       {endCardVisible && (
         <View style={styles.endCardContainer}>
         <Button 
-            title="Restart" 
             onPress={handleRestart} 
-            textStyle={styles.restartButtonText}
+            source={restartImage}
+            imageStyle={styles.restartButtonImage}
             buttonStyle={styles.restartButtonEndCard}
           />
 
@@ -390,12 +391,10 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   restartButtonStartCard: {
-    backgroundColor: Colors.danger,
-    padding: 10,
-    borderRadius: 5,
+    backgroundColor: Colors.noColor,
     position: 'absolute',
-    top: 110,
-    right: 35,
+    top: 70,
+    right: 20,
   },
   restartButtonText: {
     color: 'white',
@@ -410,12 +409,12 @@ const styles = StyleSheet.create({
     marginVertical: 100,
   },
   restartButtonEndCard: {
-    backgroundColor: Colors.danger,
+    backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,
     position: 'absolute',
-    top: 110,
-    right: 15,
+    top: 60,
+    right: 5,
   },
   startCardContainer: {
     flex: 1,
@@ -437,12 +436,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   restartButtonSubmitCard: {
-    backgroundColor: Colors.danger,
+    backgroundColor: Colors.noColor,
     padding: 10,
-    borderRadius: 5,
+    borderRadius: 50,
     position: 'absolute',
-    top: 170,
-    right: 35,
+    top: 130,
+    right: 25,
   },
   submitCardContainer: {
     flex: 1,
@@ -513,16 +512,20 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   restartButtonGameCard: {
-    backgroundColor: Colors.danger,
+    backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,
     position: 'absolute',
-    top: -60,
-    right: 0,
+    top: -100,
+    right: -10,
   },
   gameCardRestartButtonText: {
     color: 'white',
     fontSize: 16,
+  },
+  restartButtonImage: {
+    width: 100,
+    height: 100,
   },
 });
 

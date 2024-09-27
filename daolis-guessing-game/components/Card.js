@@ -2,9 +2,9 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Colors } from '../helpers/Colors';
 
-const Card = ({ children }) => {
+const Card = ({ children, style }) => {
   return (
-    <View style={styles.card}>
+    <View style={[styles.card, style]}>
       {children}
     </View>
   );

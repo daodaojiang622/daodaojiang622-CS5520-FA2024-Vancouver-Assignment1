@@ -99,6 +99,7 @@ const StartScreen = ({ onConfirm }) => {
             onValueChange={setIsChecked} 
             label="I am not a robot" 
           />
+          
           <View style={styles.buttonContainer}>
             <Button 
               title="Reset" 
@@ -124,10 +125,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: Colors.noColor,
+    marginBottom: 40,
   },
   buttonContainer: {
     marginTop: 20,
-    width: '100%',
+    width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-around',
   },

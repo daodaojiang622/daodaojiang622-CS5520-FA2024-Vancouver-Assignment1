@@ -7,7 +7,7 @@ import Card from '../components/Card';
 
 const GameScreen = ({onBackToStart, phone}) => {
 
-  const gameTime = 60;
+  const gameTime = 60000;
   const gameAttempts = 4;
   const minGuessRange = 1;
   const maxGuessRange = 100;
@@ -253,28 +253,22 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
 
       {/* Game Card */}
       {gameCardVisible && (
-        <View style={styles.cardContainer}>
+        <View style={styles.gameCardContainer}>
           <Button 
             title="Restart" 
             onPress={handleRestart} 
-            textStyle={styles.restartButtonText}
+            textStyle={styles.gameCardRestartButtonText}
             buttonStyle={styles.restartButtonGameCard}
           />
 
           <Card>
-            <Text style={styles.cardText}>{gameCardText}</Text>
+            <Text style={styles.gameCardText}>{gameCardText}</Text>
 
-            <View style={styles.cardButtonContainer}>
-              <Button 
-                title="Try Again" 
-                onPress={handleTryAgain} 
-                buttonStyle={styles.cardStartButton}
-              />
-
-              <Button 
-                title="End The Game" 
-                textStyle={styles.cardStartButtonText}
-                buttonStyle={styles.cardStartButton}
+            <View style={styles.gameCardButtonContainer}>
+            <Button 
+                title="End Game" 
+                textStyle={styles.endGameButtonText}
+                buttonStyle={styles.endGameButton}
                 onPress={() => {
                   openEndCard();
                   setEndCardText('The game is over! \n Click below to restart.');
@@ -282,6 +276,14 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
                   }
                 }
               />
+
+              <Button 
+                title="Try Again" 
+                onPress={handleTryAgain} 
+                buttonStyle={styles.tryAgainButton}
+                textStyle={styles.tryAgainButtonText}
+              />
+
             </View>
           </Card>
         </View>
@@ -476,6 +478,50 @@ const styles = StyleSheet.create({
   },
   newGameButtonText: {
     color: Colors.buttonText,
+    fontSize: 16,
+  },
+  gameCardText: {
+    fontSize: 20,
+    alignContent: 'center',
+    alignSelf: 'center',
+    padding: 10,
+  },
+  gameCardContainer: {
+    alignContent: 'center',
+    alignSelf: 'center',
+    alignItems: 'center',
+    verticalAlign: 'center',
+    marginTop: 150,
+  },
+  gameCardButtonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    width: '80%',
+    padding: 10,
+    alignSelf: 'center',
+    marginTop: 20,
+  },
+  endGameButtonText: {
+    color: Colors.danger,
+    fontSize: 16,
+  },
+  tryAgainButton: {
+    backgroundColor: Colors.buttonBackground,
+  },
+  tryAgainButtonText: {
+    color: Colors.buttonText,
+    fontSize: 16,
+  },
+  restartButtonGameCard: {
+    backgroundColor: Colors.danger,
+    padding: 10,
+    borderRadius: 5,
+    position: 'absolute',
+    top: -60,
+    right: 0,
+  },
+  gameCardRestartButtonText: {
+    color: 'white',
     fontSize: 16,
   },
 });

@@ -391,14 +391,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   restartButtonStartCard: {
-    backgroundColor: Colors.noColor,
     position: 'absolute',
     top: 70,
     right: 20,
-  },
-  restartButtonText: {
-    color: 'white',
-    fontSize: 16,
   },
   endCardContainer: {
     flex: 1,
@@ -409,7 +404,6 @@ const styles = StyleSheet.create({
     marginVertical: 100,
   },
   restartButtonEndCard: {
-    backgroundColor: Colors.noColor,
     padding: 10,
     borderRadius: 5,
     position: 'absolute',
@@ -436,9 +430,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   restartButtonSubmitCard: {
-    backgroundColor: Colors.noColor,
-    padding: 10,
-    borderRadius: 50,
     position: 'absolute',
     top: 130,
     right: 25,
@@ -512,16 +503,9 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
   restartButtonGameCard: {
-    backgroundColor: Colors.noColor,
-    padding: 10,
-    borderRadius: 5,
     position: 'absolute',
     top: -100,
     right: -10,
-  },
-  gameCardRestartButtonText: {
-    color: 'white',
-    fontSize: 16,
   },
   restartButtonImage: {
     width: 100,

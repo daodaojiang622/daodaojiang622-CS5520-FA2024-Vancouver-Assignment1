@@ -32,7 +32,7 @@ const StartScreen = ({ onConfirm }) => {
 
   const validateName = (value) => {
     if (!value || value.length <= 1 || /\d/.test(value)) {
-      return 'Please enter a valid name (non-numeric and more than 1 character)';
+      return 'Please enter a valid name';
     }
     return '';
   };
@@ -48,7 +48,7 @@ const StartScreen = ({ onConfirm }) => {
   const validatePhone = (value) => {
     const phoneRegex = /^\d{10}$/;
     if (!phoneRegex.test(value) || value[value.length - 1] === '0' || value[value.length - 1] === '1') {
-      return 'Please enter a valid phone number (10 digits, last digit not 0 or 1)';
+      return 'Please enter a valid phone number';
     }
     return '';
   };
@@ -75,21 +75,30 @@ const StartScreen = ({ onConfirm }) => {
           <InputField 
             label="Name" 
             value={name} 
-            onChangeText={setName} 
+            onChangeText={(value) => {
+              setName(value);
+              setNameError(validateName(value));
+            }} 
             placeholder="Enter your name" 
             error={nameError}
           />
           <InputField 
             label="Email address" 
             value={email} 
-            onChangeText={setEmail} 
+            onChangeText={(value) => {
+              setEmail(value);
+              setEmailError(validateEmail(value));
+            }} 
             placeholder="Enter your email" 
             error={emailError}
           />
           <InputField 
             label="Phone Number" 
             value={phone} 
-            onChangeText={setPhone} 
+            onChangeText={(value) => {
+              setPhone(value);
+              setPhoneError(validatePhone(value));
+            }} 
             placeholder="Enter your phone number" 
             keyboardType="numeric" 
             error={phoneError}
@@ -125,7 +134,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: Colors.noColor,
-    marginBottom: 40,
+    marginBottom: 30,
   },
   buttonContainer: {
     marginTop: 20,

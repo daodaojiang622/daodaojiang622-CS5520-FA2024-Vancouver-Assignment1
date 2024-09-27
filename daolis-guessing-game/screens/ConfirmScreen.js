@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   modalButtonContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '70%',
+    width: '90%',
     padding: 20,
   },
   goBackButtonText: {

@@ -298,14 +298,14 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
           />
 
           <Card>
-            <Text style={styles.cardText}>{endCardText}</Text>
+            <Text style={styles.endCardText}>{endCardText}</Text>
             <Image source={endCardImage} style={styles.endCardImage} />
 
             <Button 
             title="New Game" 
             onPress={handleNewGame} 
-            textStyle={styles.cardStartButtonText}
-            buttonStyle={styles.cardButtonContainer}
+            textStyle={styles.newGameButtonText}
+            buttonStyle={styles.newGameButtonContainer}
             />
           </Card>
         </View>
@@ -341,8 +341,9 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   submitCardText: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'left',
+    padding: 10,
   },
   input: {
     height: 30,
@@ -383,7 +384,7 @@ const styles = StyleSheet.create({
   endCardImage: {
     width: 100,
     height: 100,
-    marginVertical: 20,
+    marginVertical: 30,
     alignSelf: 'center',
   },
   restartButtonStartCard: {
@@ -402,10 +403,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    margin: 90,
-    width: '80%',
-    height: '50%',
     alignSelf: 'center',
+    width: 320,
+    marginVertical: 100,
   },
   restartButtonEndCard: {
     backgroundColor: Colors.danger,
@@ -453,14 +453,30 @@ const styles = StyleSheet.create({
   countDownText: {
     fontSize: 16,
     alignSelf: 'center',
-    marginBottom: 20,
-    corlor: Colors.danger,
+    padding: 10,
+    marginBottom: 10,
+    corlor: "red",
   },
   hintText: {
     fontSize: 16,
     marginBottom: 20,
     color: Colors.green,
     alignSelf: 'center',
+  },
+  endCardText: {
+    fontSize: 20,
+    alignContent: 'center',
+    alignSelf: 'center',
+    padding: 10,
+  },
+  newGameButtonContainer: {
+    backgroundColor: Colors.buttonBackground,
+    margin: 10,
+    alignSelf: 'center',
+  },
+  newGameButtonText: {
+    color: Colors.buttonText,
+    fontSize: 16,
   },
 });
 

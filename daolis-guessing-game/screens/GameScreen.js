@@ -286,7 +286,7 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
 
       {/* End Card */}
       {endCardVisible && (
-        <View style={styles.cardContainer}>
+        <View style={styles.endCardContainer}>
         <Button 
             title="Restart" 
             onPress={handleRestart} 
@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
   cardText: {
-    fontSize: 16,
+    fontSize: 20,
     textAlign: 'center',
     marginBottom: 20,
   },
@@ -389,6 +389,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     marginVertical: 20,
+    alignSelf: 'center',
   },
   restartButtonStartCard: {
     backgroundColor: Colors.danger,
@@ -401,6 +402,23 @@ const styles = StyleSheet.create({
   restartButtonText: {
     color: 'white',
     fontSize: 16,
+  },
+  endCardContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 90,
+    width: '80%',
+    height: '50%',
+    alignSelf: 'center',
+  },
+  restartButtonEndCard: {
+    backgroundColor: Colors.danger,
+    padding: 10,
+    borderRadius: 5,
+    position: 'absolute',
+    top: 110,
+    right: 15,
   },
 });
 

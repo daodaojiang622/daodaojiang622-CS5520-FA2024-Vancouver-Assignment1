@@ -459,6 +459,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignContent: 'center',
     alignSelf: 'center',
+    textAlign: 'center',
     padding: 10,
   },
   newGameButtonContainer: {
@@ -475,6 +476,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     alignSelf: 'center',
     padding: 10,
+    textAlign: 'center',
   },
   gameCardContainer: {
     alignContent: 'center',

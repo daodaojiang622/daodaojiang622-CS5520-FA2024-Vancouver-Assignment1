@@ -1,4 +1,3 @@
-import { LinearGradient } from 'expo-linear-gradient';
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
@@ -176,7 +175,7 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
     <GradientBackground>
       {/* Start Card */}
       {startCardVisible && (
-        <View style={styles.cardContainer}>
+        <View style={styles.startCardContainer}>
           <Button 
             title="Restart" 
             onPress={handleRestart} 
@@ -186,17 +185,17 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
 
           <Card>
             <Text style={styles.cardText}>
-              You have {gameTime} seconds and {gameAttempts} {'\n'}
-              attempts to guess a number {'\n'}
-              that is a multiple of the last {'\n'}
-              digit of your phone number {phone}.
+              You have {gameTime} seconds and {gameAttempts} attempts 
+              to guess a number that is a multiple of the last digit 
+              of your phone number  {generateNum}  between {minGuessRange} and {maxGuessRange}.
             </Text>
 
-            <View style={styles.cardButtonContainer}>
-              <TouchableOpacity style={styles.cardStartButton} onPress={openSubmitCard}>
-                <Text style={styles.cardStartButtonText}>Start</Text>
-              </TouchableOpacity>
-            </View>
+            <Button
+                title="Start"
+                onPress={openSubmitCard}
+                buttonStyle={styles.startCardStartButton}
+                textStyle={styles.startCardStartButtonText}
+              />
           </Card>
         </View>
       )}
@@ -334,8 +333,9 @@ const styles = StyleSheet.create({
   },
   cardText: {
     fontSize: 20,
-    textAlign: 'center',
-    marginBottom: 20,
+    textAlign: 'left',
+    marginTop: 10,
+    marginBottom: 40,
   },
   cardStartButton: {
     backgroundColor: Colors.blue,
@@ -343,7 +343,6 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     width: '100%',
     alignItems: 'center',
-    marginVertical: 10,
   },
   cardStartButtonText: {
     color: 'blue',
@@ -396,8 +395,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     position: 'absolute',
-    top: 150,
-    right: 50,
+    top: 110,
+    right: 35,
   },
   restartButtonText: {
     color: 'white',
@@ -419,6 +418,24 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 110,
     right: 15,
+  },
+  startCardContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
+    marginVertical: 110,
+    padding: 20,
+  },
+  startCardStartButton: {
+    backgroundColor: Colors.buttonBackground,
+    padding: 10,
+    borderRadius: 5,
+    alignSelf: 'center',
+  },
+  startCardStartButtonText: {
+    color: Colors.buttonText,
+    fontSize: 16,
   },
 });
 

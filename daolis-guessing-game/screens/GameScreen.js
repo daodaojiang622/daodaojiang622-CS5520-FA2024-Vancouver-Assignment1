@@ -184,7 +184,7 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
           />
 
           <Card>
-            <Text style={styles.cardText}>
+            <Text style={styles.startCardText}>
               You have {gameTime} seconds and {gameAttempts} attempts 
               to guess a number that is a multiple of the last digit 
               of your phone number  {generateNum}  between {minGuessRange} and {maxGuessRange}.
@@ -202,7 +202,7 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
 
       {/* Submit Card */}
       {submitCardVisible && (
-        <View style={styles.cardContainer}>
+        <View style={styles.submitCardContainer}>
           <Button 
             title="Restart" 
             onPress={handleRestart} 
@@ -211,8 +211,14 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
           />
 
           <Card>
-            <Text style={styles.cardText}>
-              Time left: {timer} seconds
+            < Text style={styles.submitCardText}>
+              You have {gameTime} seconds and {gameAttempts} attempts 
+              to guess a number that is a multiple of the last digit 
+              of your phone number  {generateNum}  between {minGuessRange} and {maxGuessRange}.
+            </Text> 
+
+            <Text style={styles.countDownText}>
+              Time left: {timer} seconds {'\n'}
               Attempts left: {attempts}
             </Text>
 
@@ -227,7 +233,6 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
 
             {hint ? <Text style={styles.hintText}>{hint}</Text> : null}
 
-            <View style={styles.buttonContainer}>
               <Button
                 title="Use a Hint"
                 onPress={handleUseHint}
@@ -242,7 +247,6 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
                 buttonStyle={styles.submitButton}
                 textStyle={styles.submitButtonText}
               />
-            </View>
           </Card>
         </View>
       )}
@@ -331,31 +335,23 @@ const styles = StyleSheet.create({
     shadowRadius: 2.62,
     elevation: 4,
   },
-  cardText: {
-    fontSize: 20,
+  startCardText: {
+    fontSize: 18,
     textAlign: 'left',
-    marginTop: 10,
-    marginBottom: 40,
+    margin: 20,
   },
-  cardStartButton: {
-    backgroundColor: Colors.blue,
-    padding: 10,
-    borderRadius: 5,
-    width: '100%',
-    alignItems: 'center',
-  },
-  cardStartButtonText: {
-    color: 'blue',
+  submitCardText: {
     fontSize: 16,
+    textAlign: 'left',
   },
   input: {
-    height: 40,
-    borderColor: 'gray',
-    borderWidth: 1,
+    height: 30,
+    borderColor: Colors.noColor,
+    borderWidth: 2,
     marginBottom: 20,
-    width: '100%',
-    textAlign: 'center',
-    borderRadius: 5,
+    width: '50%',
+    alignSelf: 'center',
+    borderBottomColor: Colors.primary,
   },
   buttonContainer: {
     flexDirection: 'row',
@@ -363,22 +359,22 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   hintButton: {
-    backgroundColor: Colors.green,
     padding: 10,
     borderRadius: 5,
     width: '48%',
-    alignItems: 'center',
+    alignSelf: 'center',
+    marginBottom: 10,
   },
   hintButtonText: {
-    color: 'blue',
+    color: Colors.hint,
     fontSize: 16,
   },
   submitButton: {
-    backgroundColor: Colors.red,
+    backgroundColor: Colors.buttonBackground,
     padding: 10,
     borderRadius: 5,
     width: '48%',
-    alignItems: 'center',
+    alignSelf: 'center',
   },
   submitButtonText: {
     color: 'white',
@@ -432,10 +428,39 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignSelf: 'center',
+    margin: 20,
   },
   startCardStartButtonText: {
     color: Colors.buttonText,
     fontSize: 16,
+  },
+  restartButtonSubmitCard: {
+    backgroundColor: Colors.danger,
+    padding: 10,
+    borderRadius: 5,
+    position: 'absolute',
+    top: 170,
+    right: 35,
+  },
+  submitCardContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    marginVertical: -10,
+    padding: 20,
+  },
+  countDownText: {
+    fontSize: 16,
+    alignSelf: 'center',
+    marginBottom: 20,
+    corlor: Colors.danger,
+  },
+  hintText: {
+    fontSize: 16,
+    marginBottom: 20,
+    color: Colors.green,
+    alignSelf: 'center',
   },
 });
 

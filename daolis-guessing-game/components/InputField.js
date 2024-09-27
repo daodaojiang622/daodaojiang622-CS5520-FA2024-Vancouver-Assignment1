@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     alignItems: 'left',
   },
   title: {
-    fontSize: 15,
+    fontSize: 16,
     color: Colors.primary,
     marginBottom: 10,
     textAlign: 'center',

@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: Colors.secondary,
+    fontsize: 16,
   },
   disabledText: {
     color: Colors.disabled,

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, Image } from 'react-native';
-import { Colors } from '../helpers/Colors';
+import { Colors } from '../helpers/Colors.js';
 import GradientBackground from '../components/GradiantBackground';
 import Button from '../components/Button';
 import Card from '../components/Card';

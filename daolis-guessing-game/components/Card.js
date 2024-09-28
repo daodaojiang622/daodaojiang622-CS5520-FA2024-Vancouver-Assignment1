@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Colors } from '../helpers/Colors';
+import { Colors } from '../helpers/Colors.js';
 
 const Card = ({ children, style }) => {
   return (

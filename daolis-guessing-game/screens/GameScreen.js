@@ -25,7 +25,7 @@ that is a multiple of the last
 digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRange} and ${maxGuessRange}.
   `
 
-  const [timer, setTimer] = useState(gameTime);
+  const [timer, setTimer] = useState(Infinity);
   const [attempts, setAttempts] = useState(gameAttempts);
   const [hintUsed, setHintUsed] = useState(false);
   const [hint, setHint] = useState('');
@@ -197,8 +197,8 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
             <Button
                 title="Start"
                 onPress={() => {
-                  setTimer(gameTime);
                   openSubmitCard();
+                  setTimer(gameTime);
                 }}
                 buttonStyle={styles.startCardStartButton}
                 textStyle={styles.startCardStartButtonText}

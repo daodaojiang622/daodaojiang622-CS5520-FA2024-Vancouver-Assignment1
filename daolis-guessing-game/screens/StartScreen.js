@@ -81,6 +81,8 @@ const StartScreen = ({ onConfirm }) => {
             }} 
             placeholder="Enter your name" 
             error={nameError}
+            // add a styling for label
+            titleStyle={styles.titleStyle}
           />
           <InputField 
             label="Email address" 
@@ -91,6 +93,7 @@ const StartScreen = ({ onConfirm }) => {
             }} 
             placeholder="Enter your email" 
             error={emailError}
+            titleStyle={styles.titleStyle}
           />
           <InputField 
             label="Phone Number" 
@@ -102,6 +105,7 @@ const StartScreen = ({ onConfirm }) => {
             placeholder="Enter your phone number" 
             keyboardType="numeric" 
             error={phoneError}
+            titleStyle={styles.titleStyle}
           />
           <CheckboxWithLabel 
             value={isChecked} 
@@ -147,6 +151,9 @@ const styles = StyleSheet.create({
   },
   registerButtonText: {
     color: Colors.primary,
+  },
+  titleStyle: {
+    textAlign: 'left',
   },
 });
 

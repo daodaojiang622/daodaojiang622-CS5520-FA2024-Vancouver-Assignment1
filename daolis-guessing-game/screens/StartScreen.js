@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import GradientBackground from '/Users/chenyujiang/Desktop/5520/daodaojiang622-CS5520-FA2024-Vancouver-Assignment1/daolis-guessing-game/components/GradiantBackground.js';
+import GradientBackground from '../components/GradientBackground';
 import { Colors } from '../helpers/Colors'; 
 import InputField from '../components/InputField';
-import CheckboxWithLabel from '/Users/chenyujiang/Desktop/5520/daodaojiang622-CS5520-FA2024-Vancouver-Assignment1/daolis-guessing-game/components/CheckBoxWithLabel.js';
+import CheckboxWithLabel from '../components/CheckboxWithLabel';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import Card from '../components/Card';

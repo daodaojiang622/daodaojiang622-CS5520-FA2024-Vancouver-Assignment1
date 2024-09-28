@@ -59,6 +59,7 @@ const GameScreen = ({onBackToStart, phone}) => {
 
   const lastPhoneDigit = phone.slice(-1); // last digit of phone number
 
+  // Generate a random natural number that is a multiple of the last digit of the phone number
   const getRandomNaturalNumber = () => {
     const min = minGuessRange;
     const max = maxGuessRange;
@@ -69,10 +70,12 @@ const GameScreen = ({onBackToStart, phone}) => {
     return generateNum;
   };
 
+  // Generate a random natural number when the component is mounted
   useEffect(() => {
     setGenerateNum(getRandomNaturalNumber());
   }, []);
 
+  // Count down timer
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => {

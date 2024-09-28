@@ -9,9 +9,9 @@ import Header from '../components/Header';
 import Card from '../components/Card';
 
 const StartScreen = ({ onConfirm }) => {
-  const [name, setName] = useState('test');
-  const [email, setEmail] = useState('test@tt.tt');
-  const [phone, setPhone] = useState('9876543212');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
   const [isChecked, setIsChecked] = useState(true);
   
   const [nameError, setNameError] = useState('');

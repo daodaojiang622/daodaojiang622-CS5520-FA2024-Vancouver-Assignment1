@@ -18,12 +18,7 @@ const GameScreen = ({onBackToStart, phone}) => {
   const [generateNum, setGenerateNum] = useState(null);
   const winImage = 'https://picsum.photos/id/' + generateNum + '/100/100';
 
-  const gameIntro =  `
-You have ${gameTime} seconds and ${gameAttempts}
-attempts to guess a number 
-that is a multiple of the last 
-digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between ${minGuessRange} and ${maxGuessRange}.
-  `
+  const gameIntro =  `You have ${gameTime} seconds and ${gameAttempts} attempts to guess a number that is a multiple of the last digit of your phone number between ${minGuessRange} and ${maxGuessRange}.`
 
   const [timer, setTimer] = useState(Infinity);
   const [attempts, setAttempts] = useState(gameAttempts);
@@ -188,11 +183,7 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
           />
 
           <Card>
-            <Text style={styles.startCardText}>
-              You have {gameTime} seconds and {gameAttempts} attempts 
-              to guess a number that is a multiple of the last digit 
-              of your phone number  {generateNum}  between {minGuessRange} and {maxGuessRange}.
-            </Text>
+            <Text style={styles.startCardText}>{gameIntro}</Text>
 
             <Button
                 title="Start"
@@ -218,11 +209,7 @@ digit of your phone number ${phone} & ${lastPhoneDigit} & ${generateNum} between
           />
 
           <Card>
-            < Text style={styles.submitCardText}>
-              You have {gameTime} seconds and {gameAttempts} attempts 
-              to guess a number that is a multiple of the last digit 
-              of your phone number  {generateNum}  between {minGuessRange} and {maxGuessRange}.
-            </Text> 
+            < Text style={styles.submitCardText}>{gameIntro}</Text> 
 
             <Text style={styles.countDownText}>
               Time left: {timer} seconds {'\n'}
@@ -520,6 +507,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
   },
+
 });
 
 export default GameScreen;

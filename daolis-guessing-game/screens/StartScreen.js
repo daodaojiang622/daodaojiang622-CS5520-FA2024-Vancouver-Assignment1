@@ -9,10 +9,10 @@ import Card from '../components/Card';
 import Button from '../components/Button';
 
 const StartScreen = ({ onConfirm }) => {
-  const [name, setName] = useState('test');
-  const [email, setEmail] = useState('test@tt.tt');
-  const [phone, setPhone] = useState('9876543212');
-  const [isChecked, setIsChecked] = useState(true);
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [isChecked, setIsChecked] = useState(false);
   
   const [nameError, setNameError] = useState('');
   const [emailError, setEmailError] = useState('');

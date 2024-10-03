@@ -1,4 +1,3 @@
-// colors.js
 export const Colors = {
     // background colors
     linearGradient: ['#82cfef', '#6693f5', '#ac94f4'],

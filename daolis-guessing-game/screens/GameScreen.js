@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet, Alert, Image } from 'react-native';
 import { Colors } from '../helpers/Colors';
-import GradientBackground from '../components/GradiantBackground';
+import GradientBackground from '../components/GradientBackground';
 import Button from '../components/Button';
 import Card from '../components/Card';
 import restartImage from '../assets/restartImage.png';

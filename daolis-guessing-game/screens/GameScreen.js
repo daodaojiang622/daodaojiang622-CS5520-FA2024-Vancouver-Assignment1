@@ -71,7 +71,7 @@ const GameScreen = ({onBackToStart, phone}) => {
 
   // generate random number
   useEffect(() => {
-    console.log('generateNum:', generateNum);
+    setGenerateNum(getRandomNaturalNumber());
   }, []);
 
   // count down timer

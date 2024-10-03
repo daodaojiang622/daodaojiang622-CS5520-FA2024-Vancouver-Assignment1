@@ -50,6 +50,7 @@ const GameScreen = ({onBackToStart, phone}) => {
   };
 
   const openSubmitCard = () => {
+    console.log('generateNum:', generateNum);
     setStartCardVisible(false);
     setGameCardVisible(false);
     setEndCardVisible(false);
@@ -101,19 +102,27 @@ const GameScreen = ({onBackToStart, phone}) => {
 
   const handleSGuess = () => {
     console.log('generateNum:', generateNum);
-    const guess = parseInt(userInput);
+    const guess = userInput.trim();
+
+    // Check if the input is a valid number
+    if (!/^\d+$/.test(guess) || parseInt(guess) < minGuessRange || parseInt(guess) > maxGuessRange) {
+      Alert.alert('Invalid Input', `Please enter a number between ${minGuessRange} and ${maxGuessRange}.`);
+      return false;
+    }
+
+    const parsedGuess = parseInt(userInput);
 
     if (attempts > 1 && timer > 0) {
-      if (isNaN(guess) || guess < minGuessRange || guess > maxGuessRange) {
+      if (isNaN(guess) || parsedGuess < minGuessRange || parsedGuess > maxGuessRange) {
         Alert.alert('Invalid Input', `Please enter a number between ${minGuessRange} and ${maxGuessRange}.`);
         return false;
-      } else if (guess === generateNum) {
+      } else if (parsedGuess === generateNum) {
         setAttempts(attempts - 1);
         openEndCard();
         setEndCardText('You guessed correctly! \n Attempts used: ' + (gameAttempts - attempts + 1));
         setEndCardImage({ uri: winImage });
         return true;
-      } else if (guess < generateNum) {
+      } else if (parsedGuess < generateNum) {
         setAttempts(attempts - 1);
         openGameCard();
         setGameCardText('You did not guess correctly! \n Try a higher number.');
@@ -125,7 +134,7 @@ const GameScreen = ({onBackToStart, phone}) => {
         return true;
       }
     } else if (attempts === 1) {
-      if (guess === generateNum) {
+      if (parsedGuess === generateNum) {
         openEndCard();
         setEndCardText('You guessed correctly! \n Attempts used: ' + (gameAttempts - attempts + 1));
         setEndCardImage({ uri: winImage });

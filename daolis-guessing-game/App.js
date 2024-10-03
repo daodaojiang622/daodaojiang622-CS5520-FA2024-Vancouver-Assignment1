@@ -13,8 +13,6 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = useState('Start'); // Initial screen
   const [isConfirmModalVisible, setConfirmModalVisible] = useState(false);
 
-  const [startModalVisible, setStartModalVisible] = useState(true);
-
   const handleConfirm = (enteredName, enteredEmail, enteredPhoneNumber) => {
     setName(enteredName); // Store name
     setEmail(enteredEmail); // Store email

@@ -68,6 +68,7 @@ const StartScreen = ({ onConfirm }) => {
   };
 
   return (
+    <View style={styles.screen}>
     <GradientBackground>
       <View style={styles.container}>
         <Header title={headerText} />
@@ -130,10 +131,16 @@ const StartScreen = ({ onConfirm }) => {
         </Card>
       </View>
     </GradientBackground>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  screen: {
+    flex: 1,
+    justifyContent: 'center',
+    width: '100%',
+  },
   container: {
     flex: 1,
     alignItems: 'center',
@@ -141,10 +148,12 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   buttonContainer: {
-    marginTop: 20,
+    marginTop: 330,
+    marginLeft: 30,
     width: '80%',
     flexDirection: 'row',
     justifyContent: 'space-around',
+    position: 'absolute',
   },
   resetButtonText: {
     color: Colors.danger,

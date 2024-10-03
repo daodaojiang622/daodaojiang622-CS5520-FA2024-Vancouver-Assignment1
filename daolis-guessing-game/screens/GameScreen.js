@@ -69,10 +69,12 @@ const GameScreen = ({onBackToStart, phone}) => {
     return generateNum;
   };
 
+  // generate random number
   useEffect(() => {
-    setGenerateNum(getRandomNaturalNumber());
+    console.log('generateNum:', generateNum);
   }, []);
 
+  // count down timer
   useEffect(() => {
     const interval = setInterval(() => {
       setTimer((prevTimer) => {
@@ -98,6 +100,7 @@ const GameScreen = ({onBackToStart, phone}) => {
   };
 
   const handleSGuess = () => {
+    console.log('generateNum:', generateNum);
     const guess = parseInt(userInput);
 
     if (attempts > 1 && timer > 0) {
@@ -316,21 +319,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  cardView: {
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    width: '80%',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.23,
-    shadowRadius: 2.62,
-    elevation: 4,
-  },
   startCardText: {
     fontSize: 18,
     textAlign: 'left',
@@ -375,7 +363,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   submitButtonText: {
-    color: 'white',
+    color: Colors.buttonText,
     fontSize: 16,
   },
   endCardImage: {
@@ -417,7 +405,8 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 5,
     alignSelf: 'center',
-    margin: 20,
+    margin: 210,
+    position: 'absolute',
   },
   startCardStartButtonText: {
     color: Colors.buttonText,
@@ -460,6 +449,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.buttonBackground,
     margin: 10,
     alignSelf: 'center',
+    position: 'absolute',
+    marginTop: 240,
   },
   newGameButtonText: {
     color: Colors.buttonText,
@@ -485,7 +476,8 @@ const styles = StyleSheet.create({
     width: '80%',
     padding: 10,
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 90,
+    position: 'absolute',
   },
   endGameButtonText: {
     color: Colors.danger,
